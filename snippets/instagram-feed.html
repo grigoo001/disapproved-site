@@ -1,62 +1,203 @@
-<!-- disapproved.site — Instagram feed section (self-contained, paste anywhere) -->
+<!-- disapproved.site &#x2014; live Instagram feed section (Behold). Self-contained: paste anywhere. -->
+<!-- To use another Behold feed, change data-feed-src below to your feed URL from the Behold dashboard. -->
 <section class="dsf" aria-labelledby="dsf-title">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="dsf-i-reel" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5" /><path d="M3 8.5h18M9 3l3 5.5M14.5 3l3 5.5" /><path d="M10 12v5l4.5-2.5z" fill="currentColor" stroke="none" /></g></symbol>
+    <symbol id="dsf-i-album" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="7" width="14" height="14" rx="3" /><path d="M7 3h11a3 3 0 0 1 3 3v11" /></g></symbol>
+  </svg>
   <div class="dsf-head">
-    <h2 id="dsf-title">From the feed</h2>
-    <a class="dsf-btn" href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener">See all on Instagram <span aria-hidden="true">↗</span></a>
+    <div>
+      <h2 id="dsf-title">From the feed</h2>
+      <p class="dsf-updated" id="dsf-updated" aria-live="polite" hidden></p>
+    </div>
+    <a class="dsf-btn" href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener">See all on Instagram <span aria-hidden="true">&#x2197;</span></a>
   </div>
-  <ul class="dsf-grid">
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/containers.jpg" width="238" height="288" alt="The MX-5 by shipping containers" loading="lazy" decoding="async" /><span class="dsf-cap">Day one</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/fuel.jpg" width="238" height="288" alt="The MX-5 at a petrol station" loading="lazy" decoding="async" /><span class="dsf-cap">Fuel stop</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/lift.jpg" width="238" height="288" alt="The MX-5 on a lift with a cortisol gauge sticker" loading="lazy" decoding="async" /><span class="dsf-cap" lang="hu">„Mi zörög?”</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/fapad.jpg" width="238" height="288" alt="The MX-5 in the workshop" loading="lazy" decoding="async" /><span class="dsf-cap" lang="hu">„Szép kis fapad 1.6”</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/snow.jpg" width="238" height="288" alt="The MX-5 in the snow with underglow" loading="lazy" decoding="async" /><span class="dsf-cap">Snow glow</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/neon.jpg" width="238" height="288" alt="A car under coloured neon lights" loading="lazy" decoding="async" /><span class="dsf-cap">Neon nights</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/field.jpg" width="238" height="288" alt="The MX-5 on gravel, bonnet open" loading="lazy" decoding="async" /><span class="dsf-cap">Off the tarmac</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/drive.jpg" width="238" height="288" alt="A row of cars parked under trees" loading="lazy" decoding="async" /><span class="dsf-cap">Drive</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/alps.jpg" width="238" height="288" alt="Mountain view over a lakeside town" loading="lazy" decoding="async" /><span class="dsf-cap">Road trip views</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/front.jpg" width="238" height="288" alt="Front end of the MX-5" loading="lazy" decoding="async" /><span class="dsf-cap">That face</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/taillights.jpg" width="238" height="288" alt="The MX-5's taillights at night" loading="lazy" decoding="async" /><span class="dsf-cap">Night shift</span></a></li>
-    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/bodywork.jpg" width="238" height="288" alt="The MX-5 in the body shop" loading="lazy" decoding="async" /><span class="dsf-cap">Maaan, fck body work</span></a></li>
+  <ul class="dsf-grid" data-feed-src="https://feeds.behold.so/6z6ih2IyPgfZUAzjR31Z" aria-busy="true" aria-label="Latest Instagram posts">
+    <li class="dsf-skel" aria-hidden="true"></li>
+    <li class="dsf-skel" aria-hidden="true"></li>
+    <li class="dsf-skel" aria-hidden="true"></li>
+    <li class="dsf-skel" aria-hidden="true"></li>
+    <li class="dsf-skel" aria-hidden="true"></li>
+    <li class="dsf-skel" aria-hidden="true"></li>
   </ul>
+  <noscript><p class="dsf-error">The live feed needs JavaScript. <a href="https://www.instagram.com/disapproved.site/">See the posts on Instagram &#x2197;</a></p></noscript>
 </section>
 
 <style>
   .dsf {
-    --dsf-bg: #0c0c0c; --dsf-panel: #151515; --dsf-fg: #f4f4f2; --dsf-line: #3a3a3a;
+    --dsf-bg: #0c0c0c; --dsf-panel: #151515; --dsf-panel-2: #1c1c1c; --dsf-fg: #f4f4f2; --dsf-text-2: #c2c2c0;
+    --dsf-mute: #8e8e8e; --dsf-line: #3a3a3a; --dsf-green: #3fbf5f;
     --dsf-ease: cubic-bezier(.16, 1, .3, 1);
     background: var(--dsf-bg); color: var(--dsf-fg);
     font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
     padding: clamp(64px, 9vw, 120px) clamp(16px, 4vw, 72px);
   }
   .dsf *, .dsf *::before, .dsf *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  .dsf [hidden] { display: none !important; }
   .dsf-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
   .dsf-head h2 { font-size: clamp(48px, 7vw, 96px); line-height: .9; font-weight: 900; font-stretch: 62%; text-transform: uppercase; }
+  .dsf-updated { margin-top: 14px; color: var(--dsf-mute); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .dsf-updated::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--dsf-green); }
   .dsf-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border: 1px solid var(--dsf-line); border-radius: 10px; color: var(--dsf-fg); font-weight: 700; text-decoration: none; transition: background .2s, transform .3s var(--dsf-ease); }
   .dsf-btn:hover { background: var(--dsf-panel); transform: translateY(-2px); }
   .dsf-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; list-style: none; border-radius: 16px; overflow: hidden; }
   .dsf-grid a { position: relative; display: block; overflow: hidden; background: var(--dsf-panel); color: var(--dsf-fg); }
-  .dsf-grid img { display: block; width: 100%; height: auto; aspect-ratio: 238 / 288; object-fit: cover; transition: transform .6s var(--dsf-ease); }
+  .dsf-grid img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; transition: transform .6s var(--dsf-ease); }
+  .dsf-skel { aspect-ratio: 1; background: linear-gradient(100deg, var(--dsf-panel) 40%, var(--dsf-panel-2) 50%, var(--dsf-panel) 60%) 0 0 / 300% 100%; animation: dsf-skel 1.4s linear infinite; }
+  @keyframes dsf-skel { to { background-position: -150% 0; } }
+  .dsf-kind { position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; color: #fff; filter: drop-shadow(0 1px 3px rgba(0,0,0,.6)); }
+  .dsf-new { position: absolute; top: 10px; left: 10px; font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 999px; background: var(--dsf-fg); color: var(--dsf-bg); }
   .dsf-cap { position: absolute; inset: auto 0 0 0; padding: 32px 12px 12px; font-size: 14px; font-weight: 600; line-height: 1.3; background: linear-gradient(transparent, rgba(0,0,0,.88)); opacity: 0; translate: 0 8px; transition: opacity .3s, translate .3s var(--dsf-ease); }
   .dsf-grid a:hover img { transform: scale(1.05); }
   .dsf-grid a:hover .dsf-cap, .dsf-grid a:focus-visible .dsf-cap { opacity: 1; translate: 0 0; }
   .dsf a:focus-visible { outline: 2px solid var(--dsf-fg); outline-offset: 3px; }
   .dsf-grid a:focus-visible { outline-offset: -3px; }
+  .dsf-error { grid-column: 1 / -1; padding: 48px 24px; text-align: center; background: var(--dsf-panel); color: var(--dsf-text-2); border-radius: 16px; }
+  .dsf-error a { color: var(--dsf-fg); text-decoration: underline; text-underline-offset: .2em; }
 
-  @media (min-width: 1800px) { .dsf-grid { grid-template-columns: repeat(12, 1fr); } }
+  @media (min-width: 1800px) { .dsf-grid:has(> li:nth-child(12)) { grid-template-columns: repeat(12, 1fr); } }
   @media (max-width: 960px) { .dsf-grid { grid-template-columns: repeat(3, 1fr); } }
 
-  /* Photos ease in as they scroll into view (Chrome/Edge/Safari 26+; others just show them) */
-  @supports (animation-timeline: view()) {
-    .dsf-grid li { animation: dsf-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
-    .dsf-grid li:nth-child(6n+2) { animation-range: entry 5% entry 80%; }
-    .dsf-grid li:nth-child(6n+3) { animation-range: entry 10% entry 90%; }
-    .dsf-grid li:nth-child(6n+4) { animation-range: entry 15% entry 95%; }
-    .dsf-grid li:nth-child(6n+5) { animation-range: entry 20% entry 100%; }
-    .dsf-grid li:nth-child(6n+6) { animation-range: entry 25% cover 30%; }
-    @keyframes dsf-rise { from { opacity: 0; translate: 0 48px; } to { opacity: 1; translate: 0 0; } }
-  }
   @media (prefers-reduced-motion: reduce) {
     .dsf-grid img, .dsf-cap, .dsf-btn { transition: none; }
-    .dsf-grid li { animation: none !important; }
+    .dsf-skel { animation: none; }
   }
 </style>
+
+<script>
+// Live Instagram feed, powered by Behold (behold.so). Self-contained copy of disapproved.site/feed.js.
+// The grid in <ul class="dsf-grid" data-feed-src="https://feeds.behold.so/<feed id>"> starts as loading
+// placeholders. On every page load this fetches the Behold JSON feed and renders the latest posts.
+// If Behold can't be reached, the placeholders are replaced by a link to the Instagram profile.
+(() => {
+  const list = document.querySelector('.dsf-grid[data-feed-src]');
+  if (!list) return;
+
+  const MAX = 12;
+  const NEW_DAYS = 7;
+  const PROFILE = 'https://www.instagram.com/disapproved.site/';
+  const SIZES = '(min-width: 1800px) 8vw, (min-width: 961px) 16vw, 33vw';
+  const SVG = 'http://www.w3.org/2000/svg';
+
+  const httpsUrl = (u) => {
+    try { const url = new URL(u); return url.protocol === 'https:' ? url.href : null; } catch { return null; }
+  };
+
+  // Behold's prunedCaption drops trailing hashtags; keep the first line, tile-sized.
+  const shortCaption = (text) => {
+    const line = String(text || '').split('\n').map((s) => s.trim()).find(Boolean) || '';
+    const clean = line.replace(/\s*#\S+/g, '').trim();
+    return clean.length > 60 ? clean.slice(0, 57).trimEnd() + '\u2026' : clean;
+  };
+
+  const normalise = (feed) => {
+    const posts = Array.isArray(feed) ? feed : feed.posts || [];
+    return posts.map((p) => {
+      const type = p.mediaType || '';
+      const kind = /video/i.test(type) ? 'reel' : /carousel/i.test(type) ? 'album' : '';
+      const sizes = p.sizes || {};
+      const pick = (k) => sizes[k] && httpsUrl(sizes[k].mediaUrl);
+      const caption = shortCaption(p.prunedCaption || p.caption);
+      return {
+        image: pick('medium') || pick('small') || httpsUrl(kind === 'reel' ? p.thumbnailUrl : p.mediaUrl),
+        srcset: ['small', 'medium', 'large'].filter(pick).map((k) => `${pick(k)} ${sizes[k].width}w`).join(', '),
+        kind,
+        link: httpsUrl(p.permalink) || PROFILE,
+        caption,
+        alt: p.altText || `Instagram ${kind === 'reel' ? 'reel' : 'post'}${caption ? `: ${caption}` : ' from @disapproved.site'}`,
+        time: Date.parse(p.timestamp || '') || 0,
+      };
+    }).filter((p) => p.image).slice(0, MAX);
+  };
+
+  const icon = (kind) => {
+    const svg = document.createElementNS(SVG, 'svg');
+    svg.setAttribute('class', 'dsf-kind');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('aria-hidden', 'true');
+    const use = document.createElementNS(SVG, 'use');
+    use.setAttribute('href', `#dsf-i-${kind}`);
+    svg.append(use);
+    return svg;
+  };
+
+  const tile = (post) => {
+    const li = document.createElement('li');
+    
+    const a = document.createElement('a');
+    a.href = post.link;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    const img = new Image(700, 700);
+    img.src = post.image;
+    if (post.srcset) { img.srcset = post.srcset; img.sizes = SIZES; }
+    img.alt = post.alt;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.referrerPolicy = 'no-referrer';
+    a.append(img);
+    if (post.kind) a.append(icon(post.kind));
+    if (post.time && Date.now() - post.time < NEW_DAYS * 864e5) {
+      const badge = document.createElement('span');
+      badge.className = 'dsf-new';
+      badge.textContent = 'New';
+      a.append(badge);
+    }
+    if (post.caption) {
+      const cap = document.createElement('span');
+      cap.className = 'dsf-cap';
+      cap.textContent = post.caption;
+      a.append(cap);
+    }
+    li.append(a);
+    return li;
+  };
+
+  const ago = (t) => {
+    const hours = (Date.now() - t) / 36e5;
+    const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+    if (hours < 24) return rtf.format(-Math.max(1, Math.round(hours)), 'hour');
+    if (hours < 24 * 30) return rtf.format(-Math.floor(hours / 24), 'day');
+    return new Intl.DateTimeFormat('en', { day: 'numeric', month: 'short', year: 'numeric' }).format(t);
+  };
+
+  const done = () => list.setAttribute('aria-busy', 'false');
+
+  const fail = () => {
+    const li = document.createElement('li');
+    li.className = 'dsf-error';
+    const p = document.createElement('p');
+    p.textContent = 'The latest posts didn\u2019t load. ';
+    const a = document.createElement('a');
+    a.href = PROFILE;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = 'See them on Instagram \u2197';
+    p.append(a);
+    li.append(p);
+    list.replaceChildren(li);
+    done();
+  };
+
+  if (!('fetch' in window)) return fail();
+
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 10000);
+  fetch(list.dataset.feedSrc, { signal: ctrl.signal })
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+    .then((feed) => {
+      const posts = normalise(feed);
+      if (!posts.length) return fail();
+      list.replaceChildren(...posts.map(tile));
+      done();
+      const latest = Math.max(...posts.map((p) => p.time));
+      const stamp = document.getElementById('dsf-updated');
+      if (stamp && latest) {
+        stamp.textContent = `Latest post ${ago(latest)}`;
+        stamp.hidden = false;
+      }
+    })
+    .catch(fail)
+    .finally(() => clearTimeout(timer));
+})();
+</script>

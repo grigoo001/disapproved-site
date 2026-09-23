@@ -1,58 +1,57 @@
-// Live Instagram feed.
-// On every page load, fetch the latest posts from the source in <ul class="feed" data-feed-src="...">
-// and rebuild the grid. If the source is missing, empty or broken, the static tiles in the HTML stay.
-//
-// Accepted sources (auto-detected):
-//   - data/instagram.json written by .github/workflows/instagram-feed.yml (Instagram API format: { data: [...] })
-//   - a Behold.so JSON feed URL (array of posts, or { posts: [...] }) – currently used
+// Live Instagram feed, powered by Behold (behold.so).
+// The grid in <ul class="feed" data-feed-src="https://feeds.behold.so/<feed id>"> starts as loading
+// placeholders. On every page load this fetches the Behold JSON feed and renders the latest posts.
+// If Behold can't be reached, the placeholders are replaced by a link to the Instagram profile.
 (() => {
   const list = document.querySelector('.feed[data-feed-src]');
-  if (!list || !list.dataset.feedSrc || !('fetch' in window)) return;
+  if (!list) return;
 
   const MAX = 12;
   const NEW_DAYS = 7;
-  const FALLBACK_LINK = 'https://www.instagram.com/disapproved.site/';
+  const PROFILE = 'https://www.instagram.com/disapproved.site/';
   const SIZES = '(min-width: 1800px) 8vw, (min-width: 961px) 16vw, 33vw';
+  const SVG = 'http://www.w3.org/2000/svg';
 
-  const safeUrl = (u) => {
-    try {
-      const url = new URL(u, location.href);
-      return url.protocol === 'https:' || url.origin === location.origin ? url.href : null;
-    } catch { return null; }
+  const httpsUrl = (u) => {
+    try { const url = new URL(u); return url.protocol === 'https:' ? url.href : null; } catch { return null; }
   };
 
-  // First line of the caption, trimmed to a tile-sized label.
+  // Behold's prunedCaption drops trailing hashtags; keep the first line, tile-sized.
   const shortCaption = (text) => {
     const line = String(text || '').split('\n').map((s) => s.trim()).find(Boolean) || '';
     const clean = line.replace(/\s*#\S+/g, '').trim();
     return clean.length > 60 ? clean.slice(0, 57).trimEnd() + '…' : clean;
   };
 
-  // Normalise either source into { image, link, caption, alt, time }.
-  const normalise = (raw) => {
-    const posts = Array.isArray(raw) ? raw : raw.data || raw.posts || [];
+  const normalise = (feed) => {
+    const posts = Array.isArray(feed) ? feed : feed.posts || [];
     return posts.map((p) => {
-      const isVideo = /video/i.test(p.media_type || p.mediaType || '');
-      const image =
-        (p.sizes && p.sizes.medium && p.sizes.medium.mediaUrl) ||
-        (isVideo ? p.thumbnail_url || p.thumbnailUrl : null) ||
-        p.local_image || p.media_url || p.mediaUrl || p.thumbnail_url || p.thumbnailUrl;
+      const type = p.mediaType || '';
+      const kind = /video/i.test(type) ? 'reel' : /carousel/i.test(type) ? 'album' : '';
+      const sizes = p.sizes || {};
+      const pick = (k) => sizes[k] && httpsUrl(sizes[k].mediaUrl);
       const caption = shortCaption(p.prunedCaption || p.caption);
-      const sz = p.sizes || {};
-      const srcset = ['small', 'medium', 'large']
-        .filter((k) => sz[k] && sz[k].mediaUrl && safeUrl(sz[k].mediaUrl))
-        .map((k) => `${safeUrl(sz[k].mediaUrl)} ${sz[k].width}w`).join(', ');
-      const kind = isVideo ? 'reel' : /carousel/i.test(p.media_type || p.mediaType || '') ? 'album' : '';
       return {
-        srcset,
+        image: pick('medium') || pick('small') || httpsUrl(kind === 'reel' ? p.thumbnailUrl : p.mediaUrl),
+        srcset: ['small', 'medium', 'large'].filter(pick).map((k) => `${pick(k)} ${sizes[k].width}w`).join(', '),
         kind,
-        image: safeUrl(image),
-        link: safeUrl(p.permalink) || FALLBACK_LINK,
+        link: httpsUrl(p.permalink) || PROFILE,
         caption,
-        alt: p.alt_text || p.altText || `Instagram ${isVideo ? 'reel' : 'post'}${caption ? `: ${caption}` : ' from @disapproved.site'}`,
-        time: Date.parse(p.timestamp || p.time || '') || 0,
+        alt: p.altText || `Instagram ${kind === 'reel' ? 'reel' : 'post'}${caption ? `: ${caption}` : ' from @disapproved.site'}`,
+        time: Date.parse(p.timestamp || '') || 0,
       };
     }).filter((p) => p.image).slice(0, MAX);
+  };
+
+  const icon = (kind) => {
+    const svg = document.createElementNS(SVG, 'svg');
+    svg.setAttribute('class', 'kind');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('aria-hidden', 'true');
+    const use = document.createElementNS(SVG, 'use');
+    use.setAttribute('href', `#i-${kind}`);
+    svg.append(use);
+    return svg;
   };
 
   const tile = (post) => {
@@ -64,25 +63,13 @@
     a.rel = 'noopener';
     const img = new Image(700, 700);
     img.src = post.image;
-    if (post.srcset) {
-      img.srcset = post.srcset;
-      img.sizes = SIZES;
-    }
+    if (post.srcset) { img.srcset = post.srcset; img.sizes = SIZES; }
     img.alt = post.alt;
     img.loading = 'lazy';
     img.decoding = 'async';
     img.referrerPolicy = 'no-referrer';
     a.append(img);
-    if (post.kind) {
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('class', 'kind');
-      svg.setAttribute('viewBox', '0 0 24 24');
-      svg.setAttribute('aria-hidden', 'true');
-      const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-      use.setAttribute('href', `#i-${post.kind}`);
-      svg.append(use);
-      a.append(svg);
-    }
+    if (post.kind) a.append(icon(post.kind));
     if (post.time && Date.now() - post.time < NEW_DAYS * 864e5) {
       const badge = document.createElement('span');
       badge.className = 'new';
@@ -100,26 +87,42 @@
   };
 
   const ago = (t) => {
-    const days = Math.floor((Date.now() - t) / 864e5);
+    const hours = (Date.now() - t) / 36e5;
     const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-    if (days < 1) return rtf.format(-Math.max(1, Math.round((Date.now() - t) / 36e5)), 'hour');
-    if (days < 30) return rtf.format(-days, 'day');
+    if (hours < 24) return rtf.format(-Math.max(1, Math.round(hours)), 'hour');
+    if (hours < 24 * 30) return rtf.format(-Math.floor(hours / 24), 'day');
     return new Intl.DateTimeFormat('en', { day: 'numeric', month: 'short', year: 'numeric' }).format(t);
   };
 
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 8000);
-  // Cache-bust per load so a new post shows up on the next refresh, not after the browser cache expires.
-  const src = new URL(list.dataset.feedSrc, location.href);
-  if (src.origin === location.origin) src.searchParams.set('t', Date.now());
+  const done = () => list.setAttribute('aria-busy', 'false');
 
-  fetch(src, { signal: ctrl.signal, cache: 'no-store' })
-    .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-    .then((raw) => {
-      const posts = normalise(raw);
-      if (posts.length < 3) return; // too few to fill the grid; keep the static tiles
+  const fail = () => {
+    const li = document.createElement('li');
+    li.className = 'feed-error';
+    const p = document.createElement('p');
+    p.textContent = 'The latest posts didn’t load. ';
+    const a = document.createElement('a');
+    a.href = PROFILE;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = 'See them on Instagram ↗';
+    p.append(a);
+    li.append(p);
+    list.replaceChildren(li);
+    done();
+  };
+
+  if (!('fetch' in window)) return fail();
+
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 10000);
+  fetch(list.dataset.feedSrc, { signal: ctrl.signal })
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+    .then((feed) => {
+      const posts = normalise(feed);
+      if (!posts.length) return fail();
       list.replaceChildren(...posts.map(tile));
-      list.setAttribute('aria-busy', 'false');
+      done();
       const latest = Math.max(...posts.map((p) => p.time));
       const stamp = document.getElementById('feed-updated');
       if (stamp && latest) {
@@ -127,6 +130,6 @@
         stamp.hidden = false;
       }
     })
-    .catch(() => { /* keep the static tiles */ })
+    .catch(fail)
     .finally(() => clearTimeout(timer));
 })();
