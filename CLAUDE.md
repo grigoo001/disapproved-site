@@ -46,9 +46,11 @@ hidden and an Instagram link is shown instead.
 ## Live Instagram feed
 `feed.js` fetches the source in `<ul class="feed" data-feed-src="...">` on every page load and rebuilds the grid
 (max 12 posts, "New" badge for posts under 7 days old, "Latest post …" line). If the source is missing or fails,
-the static tiles in `index.html` stay. Two supported sources:
-- **GitHub Action (default):** `.github/workflows/instagram-feed.yml` runs hourly, calls the Instagram API with the
+the static tiles in `index.html` stay (they are the 6 latest posts as of Sept 2026, served from Behold's CDN).
+Two supported sources:
+- **Behold.so (active):** `data-feed-src="https://feeds.behold.so/6z6ih2IyPgfZUAzjR31Z"`. Behold refreshes the feed on its own
+  schedule; the free plan returns the latest 6 posts. Tiles use Behold's square 400/700/1000px sizes via `srcset`.
+- **GitHub Action (inactive, manual only):** `.github/workflows/instagram-feed.yml` runs hourly, calls the Instagram API with the
   `IG_ACCESS_TOKEN` repo secret, and commits `data/instagram.json` + `data/ig/*.jpg`. Needs an Instagram
   professional (Creator/Business) account and a long-lived token from a Meta developer app.
   The script refreshes the token on each run so it doesn't hit the 60-day expiry.
-- **Behold.so:** connect the account there, then set `data-feed-src` to the Behold JSON feed URL.

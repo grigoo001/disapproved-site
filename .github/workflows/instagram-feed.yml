@@ -1,9 +1,12 @@
 name: Update Instagram feed
 
+# The site currently reads the feed from Behold (see data-feed-src in index.html), so this only runs on demand.
+# To use the Instagram API instead: add the IG_ACCESS_TOKEN secret, uncomment the schedule,
+# and set data-feed-src back to "data/instagram.json".
 on:
-  schedule:
-    - cron: "0 * * * *"   # every hour
-  workflow_dispatch:       # "Run workflow" button in the Actions tab
+  # schedule:
+  #   - cron: "0 * * * *"   # every hour
+  workflow_dispatch:         # "Run workflow" button in the Actions tab
 
 permissions:
   contents: write

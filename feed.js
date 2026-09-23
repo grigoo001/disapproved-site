@@ -4,7 +4,7 @@
 //
 // Accepted sources (auto-detected):
 //   - data/instagram.json written by .github/workflows/instagram-feed.yml (Instagram API format: { data: [...] })
-//   - a Behold.so JSON feed URL (array of posts, or { posts: [...] })
+//   - a Behold.so JSON feed URL (array of posts, or { posts: [...] }) – currently used
 (() => {
   const list = document.querySelector('.feed[data-feed-src]');
   if (!list || !list.dataset.feedSrc || !('fetch' in window)) return;
@@ -12,6 +12,7 @@
   const MAX = 12;
   const NEW_DAYS = 7;
   const FALLBACK_LINK = 'https://www.instagram.com/disapproved.site/';
+  const SIZES = '(min-width: 1800px) 8vw, (min-width: 961px) 16vw, 33vw';
 
   const safeUrl = (u) => {
     try {
@@ -37,11 +38,18 @@
         (isVideo ? p.thumbnail_url || p.thumbnailUrl : null) ||
         p.local_image || p.media_url || p.mediaUrl || p.thumbnail_url || p.thumbnailUrl;
       const caption = shortCaption(p.prunedCaption || p.caption);
+      const sz = p.sizes || {};
+      const srcset = ['small', 'medium', 'large']
+        .filter((k) => sz[k] && sz[k].mediaUrl && safeUrl(sz[k].mediaUrl))
+        .map((k) => `${safeUrl(sz[k].mediaUrl)} ${sz[k].width}w`).join(', ');
+      const kind = isVideo ? 'reel' : /carousel/i.test(p.media_type || p.mediaType || '') ? 'album' : '';
       return {
+        srcset,
+        kind,
         image: safeUrl(image),
         link: safeUrl(p.permalink) || FALLBACK_LINK,
         caption,
-        alt: p.alt_text || p.altText || (caption ? `Instagram post: ${caption}` : 'Instagram post from @disapproved.site'),
+        alt: p.alt_text || p.altText || `Instagram ${isVideo ? 'reel' : 'post'}${caption ? `: ${caption}` : ' from @disapproved.site'}`,
         time: Date.parse(p.timestamp || p.time || '') || 0,
       };
     }).filter((p) => p.image).slice(0, MAX);
@@ -54,13 +62,27 @@
     a.href = post.link;
     a.target = '_blank';
     a.rel = 'noopener';
-    const img = new Image(480, 580);
+    const img = new Image(700, 700);
     img.src = post.image;
+    if (post.srcset) {
+      img.srcset = post.srcset;
+      img.sizes = SIZES;
+    }
     img.alt = post.alt;
     img.loading = 'lazy';
     img.decoding = 'async';
     img.referrerPolicy = 'no-referrer';
     a.append(img);
+    if (post.kind) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('class', 'kind');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('aria-hidden', 'true');
+      const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      use.setAttribute('href', `#i-${post.kind}`);
+      svg.append(use);
+      a.append(svg);
+    }
     if (post.time && Date.now() - post.time < NEW_DAYS * 864e5) {
       const badge = document.createElement('span');
       badge.className = 'new';
