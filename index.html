@@ -69,24 +69,24 @@
     /* --- Hero: mirrors the poster. Lockup top-left, car bottom-right. --- */
     .hero { padding-block: clamp(40px, 6vw, 88px) clamp(72px, 9vw, 112px); display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 32px clamp(32px, 6vw, 88px); align-items: start; grid-template-areas: "logo copy" "logo collage"; }
     .hero h1 { grid-area: logo; } .hero .copy { grid-area: copy; } .hero .collage { grid-area: collage; }
-    .hero h1 svg.logo { width: min(100%, 420px); }
+    .hero h1 svg.logo { width: min(100%, clamp(260px, 30vw, 640px)); }
     .hero .copy { padding-top: clamp(8px, 3vw, 40px); }
-    .hero .tag { font-size: clamp(26px, 2.8vw, 38px); line-height: 1.3; letter-spacing: -.015em; font-weight: 600; max-width: 20ch; text-wrap: balance; }
+    .hero .tag { font-size: clamp(26px, 2.8vw, 48px); line-height: 1.3; letter-spacing: -.015em; font-weight: 600; max-width: 20ch; text-wrap: balance; }
     .hero .tag span { color: var(--mute); }
     .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
 
-    .collage { position: relative; margin-top: clamp(16px, 3vw, 40px); aspect-ratio: 1.45; max-width: 620px; }
+    .collage { position: relative; margin-top: clamp(16px, 3vw, 40px); aspect-ratio: 1.45; width: min(100%, 860px); }
     .shot { position: absolute; width: 38%; border-radius: 14px; overflow: hidden; border: 5px solid var(--fg); background: var(--panel); box-shadow: 0 30px 60px -24px rgba(0,0,0,.9); rotate: var(--r); animation: settle 1.1s var(--ease) both; }
     .shot img { width: 100%; height: auto; aspect-ratio: 238 / 288; object-fit: cover; }
-    .shot.s1 { left: 0; top: 10%; --r: -6deg; z-index: 1; animation-delay: .05s; }
-    .shot.s2 { left: 31%; top: 0; --r: 3deg; z-index: 2; animation-delay: .15s; }
-    .shot.s3 { right: 0; top: 14%; --r: -2deg; z-index: 3; animation-delay: .25s; }
-    @keyframes settle { from { rotate: 0deg; translate: 0 14px; } }
+    .shot.s1 { left: 0; top: 10%; --r: -6deg; z-index: 1; }
+    .shot.s2 { left: 31%; top: 0; --r: 3deg; z-index: 2; }
+    .shot.s3 { right: 0; top: 14%; --r: -2deg; z-index: 3; }
+    @keyframes settle { from { opacity: 0; rotate: 0deg; translate: 0 40px; } }
     .sticker { position: absolute; z-index: 4; left: 22%; bottom: -4%; width: 19%; aspect-ratio: 1; border-radius: 50%; background: var(--fg); color: var(--bg); display: grid; place-items: center; rotate: -10deg; box-shadow: 0 12px 30px -8px rgba(0,0,0,.7); }
     .sticker svg.dis { width: 70%; }
 
     /* --- Project MX52 --- */
-    .build { display: grid; grid-template-columns: minmax(280px, 340px) 1fr; gap: 24px; align-items: start; }
+    .build { display: grid; grid-template-columns: minmax(280px, 380px) 1fr; gap: 24px; align-items: start; }
     .spec { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 28px; position: sticky; top: calc(var(--header-h) + 24px); }
     .spec .model { font-size: 44px; }
     .spec .sub { color: var(--mute); margin: 8px 0 20px; }
@@ -119,7 +119,7 @@
     .triggers button[aria-pressed="true"] { background: var(--ink-on-light); color: var(--fg); border-color: var(--ink-on-light); }
     .gauge { width: min(100%, 420px); margin-inline: auto; --level: .97; }
     .gauge svg { width: 100%; height: auto; overflow: visible; }
-    .needle { transform-origin: 150px 150px; transform: rotate(calc((var(--level) - .5) * 180deg)); transition: transform .9s cubic-bezier(.3, 1.5, .5, 1); }
+    .needle { transform-origin: 150px 150px; transform: rotate(calc((var(--level) - .5) * 180deg)); transition: transform 1.2s cubic-bezier(.34, 1.3, .5, 1); }
     .readout { text-align: center; margin-top: 8px; }
     .readout b { display: block; font-size: 48px; }
     .readout span { display: block; color: var(--mute-on-light); margin-top: 6px; min-height: 3.1em; }
@@ -170,10 +170,35 @@
     footer ul a:hover { color: var(--fg); }
     footer small { display: block; color: var(--mute); font-size: 14px; margin-top: 8px; }
 
+    @media (min-width: 1500px) {
+      .log { grid-template-columns: 1fr 1fr; }
+      .log .entry.now { grid-column: 1 / -1; }
+    }
+    @media (min-width: 1800px) {
+      .feed { grid-template-columns: repeat(12, 1fr); }
+    }
+
+    /* Desktop: the hero owns the first screen. Logo scales with viewport height,
+       collage fills the right-hand column. */
+    @media (min-width: 961px) {
+      .hero { min-height: calc(100svh - var(--header-h) - 41px); align-content: center; padding-block: clamp(32px, 4vh, 64px); grid-template-columns: auto minmax(0, 1fr); }
+      .hero h1 svg.logo { width: auto; height: calc(100svh - var(--header-h) - 41px - 2 * clamp(32px, 4vh, 64px)); max-width: 42vw; }
+      .hero .copy { display: flex; justify-content: space-between; align-items: end; gap: 24px 48px; flex-wrap: wrap; padding-top: 0; }
+      .hero .tag { max-width: 18ch; }
+      .hero .ctas { margin-top: 0; }
+      .collage { width: 100%; aspect-ratio: auto; height: 100%; min-height: 360px; margin-top: 0; }
+      .hero { grid-template-rows: auto 1fr; }
+      .shot { width: auto; height: 86%; aspect-ratio: 238 / 288; }
+      .shot img { height: 100%; }
+      .shot.s1 { left: 0; top: 10%; }
+      .shot.s2 { left: 50%; translate: -50% 0; top: 0; }
+      .shot.s3 { left: auto; right: 0; top: 12%; }
+      .sticker { left: auto; right: 24%; bottom: 0; width: clamp(96px, 9vw, 170px); }
+    }
     @media (max-width: 960px) {
       :root { --header-h: 116px; }
       nav { flex-wrap: wrap; row-gap: 0; padding-top: 8px; }
-      nav ul { order: 3; width: calc(100% + 32px); margin: 0 -16px; padding: 4px 12px 8px; overflow-x: auto; scrollbar-width: none; border-top: 1px solid var(--line); }
+      nav ul { order: 3; width: calc(100% + 2 * var(--gutter)); margin: 0 calc(-1 * var(--gutter)); padding: 4px calc(var(--gutter) - 4px) 8px; overflow-x: auto; scrollbar-width: none; border-top: 1px solid var(--line); }
       nav ul::-webkit-scrollbar { display: none; }
       nav ul a { white-space: nowrap; }
       .hero { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-areas: "logo copy" "collage collage"; }
@@ -200,6 +225,46 @@
     @media (prefers-reduced-motion: reduce) {
       .shot { animation: none; }
       .needle, .feed img, .feed .cap, .btn { transition: none; }
+    }
+
+    /* --- Motion ---------------------------------------------------------
+       Focal moment: the lockup assembles on load ("dis" drops in, the three
+       APPROVE lines slide up in turn), then the photos land. Everything else
+       eases in with scroll via CSS scroll timelines; unsupported browsers
+       simply show the content. */
+    .lockup .lp { transform-box: fill-box; }
+    .lp-dis { animation: lp-drop .9s var(--ease) .1s both; }
+    .lp-a1, .lp-a2, .lp-a3 { animation: lp-rise .8s var(--ease) both; clip-path: inset(0); }
+    .lp-a1 { animation-delay: .35s; } .lp-a2 { animation-delay: .45s; } .lp-a3 { animation-delay: .55s; }
+    @keyframes lp-drop { from { opacity: 0; transform: translateY(-18%); } }
+    @keyframes lp-rise { from { opacity: 0; transform: translateY(22%); clip-path: inset(0 0 100% 0); } }
+    .hero .copy { animation: fade-up .8s var(--ease) .5s both; }
+    .shot.s1 { animation-delay: .7s; } .shot.s2 { animation-delay: .8s; } .shot.s3 { animation-delay: .9s; }
+    .sticker { animation: stamp .6s var(--ease) 1.15s both; }
+    @keyframes fade-up { from { opacity: 0; translate: 0 16px; } }
+    @keyframes stamp { from { opacity: 0; scale: 1.6; rotate: -30deg; } }
+
+    @supports (animation-timeline: view()) {
+      .rise { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+      .feed li:nth-child(6n+2), .rows .row:nth-child(2) { animation-range: entry 5% entry 80%; }
+      .feed li:nth-child(6n+3), .rows .row:nth-child(3) { animation-range: entry 10% entry 90%; }
+      .feed li:nth-child(6n+4) { animation-range: entry 15% entry 95%; }
+      .feed li:nth-child(6n+5) { animation-range: entry 20% entry 100%; }
+      .feed li:nth-child(6n+6) { animation-range: entry 25% cover 30%; }
+      @keyframes rise { from { opacity: 0; translate: 0 48px; } to { opacity: 1; translate: 0 0; } }
+      /* Section headings slide in from the side they sit on */
+      .head h2.rise { animation-name: slide-in; }
+      @keyframes slide-in { from { opacity: 0; translate: -6vw 0; } to { opacity: 1; translate: 0 0; } }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lp-dis, .lp-a1, .lp-a2, .lp-a3, .hero .copy, .sticker { animation: fade .4s ease both; }
+      .lp-a1, .lp-a2, .lp-a3 { clip-path: none; }
+      @keyframes fade { from { opacity: 0; } }
+      @supports (animation-timeline: view()) {
+        .rise, .head h2.rise { animation-name: fade-only; }
+        @keyframes fade-only { from { opacity: 0; } to { opacity: 1; } }
+      }
     }
   </style>
 </head>
@@ -233,7 +298,7 @@
 
   <main id="main">
     <div class="hero wrap" id="top">
-      <h1><span class="sr-only">disapproved</span><svg class="logo" viewBox="0 0 1507 1983" aria-hidden="true"><use href="#logo" /></svg></h1>
+      <h1><span class="sr-only">disapproved</span><svg class="logo lockup" viewBox="0 -725 1507 1983" aria-hidden="true"><g class="lp lp-a1"><path transform="scale(1,-1)" fill="currentColor" d="M212 -1256 36 -1189V-1134L212 -1068V-1117L181 -1128V-1198L212 -1208ZM147 -1187V-1139L110 -1151Q107 -1152 103 -1154Q99 -1155 94 -1157Q89 -1158 84 -1159Q79 -1161 76 -1162V-1164Q81 -1165 87 -1167Q93 -1169 99 -1171Q105 -1173 110 -1174Z M212 -1047H36V-950Q36 -932 43 -920Q50 -907 63 -900Q76 -893 94 -893Q112 -893 125 -900Q138 -907 145 -920Q152 -933 152 -951V-1001H212ZM117 -1001V-962Q117 -951 111 -945Q105 -940 94 -940Q87 -940 82 -942Q77 -945 74 -950Q71 -954 71 -962V-1001Z M212 -868H36V-771Q36 -753 43 -741Q50 -728 63 -721Q76 -714 94 -714Q112 -714 125 -721Q138 -728 145 -741Q152 -754 152 -772V-822H212ZM117 -822V-783Q117 -772 111 -766Q105 -761 94 -761Q87 -761 82 -763Q77 -766 74 -771Q71 -775 71 -783V-822Z M212 -689H36V-587Q36 -567 43 -554Q50 -541 63 -534Q76 -528 91 -528Q108 -528 122 -536Q135 -544 142 -558L212 -522V-574L150 -603V-643H212ZM116 -643V-596Q116 -586 110 -580Q103 -575 93 -575Q86 -575 81 -577Q76 -580 73 -584Q71 -589 71 -596V-643Z M215 -412Q215 -441 205 -462Q195 -482 175 -493Q154 -504 124 -504Q93 -504 73 -493Q53 -482 43 -462Q33 -441 33 -412Q33 -383 43 -362Q53 -342 73 -331Q93 -320 124 -320Q154 -320 175 -331Q195 -342 205 -362Q215 -383 215 -412ZM179 -412Q179 -401 176 -393Q172 -384 166 -378Q160 -373 150 -370Q141 -367 130 -367H118Q107 -367 97 -370Q88 -373 82 -378Q75 -384 72 -393Q69 -401 69 -412Q69 -423 72 -432Q75 -440 82 -446Q88 -452 97 -454Q107 -457 118 -457H130Q141 -457 150 -454Q160 -452 166 -446Q172 -440 176 -432Q179 -423 179 -412Z M212 -241 36 -305V-255L135 -223Q138 -222 143 -220Q148 -219 154 -217Q159 -216 163 -215V-213Q159 -212 154 -210Q149 -209 144 -207Q139 -206 135 -205L36 -172V-125L212 -188Z M212 -102H36V44H72V-56H105V31H140V-56H176V46H212Z" /></g><g class="lp lp-a2"><path transform="scale(1,-1)" fill="currentColor" d="M409 -1256 233 -1189V-1134L409 -1068V-1117L378 -1128V-1198L409 -1208ZM344 -1187V-1139L307 -1151Q304 -1152 300 -1154Q296 -1155 291 -1157Q286 -1158 281 -1159Q276 -1161 273 -1162V-1164Q278 -1165 284 -1167Q290 -1169 296 -1171Q302 -1173 307 -1174Z M409 -1047H233V-950Q233 -932 240 -920Q247 -907 260 -900Q273 -893 291 -893Q309 -893 322 -900Q335 -907 342 -920Q349 -933 349 -951V-1001H409ZM314 -1001V-962Q314 -951 308 -945Q302 -940 291 -940Q284 -940 279 -942Q274 -945 271 -950Q268 -954 268 -962V-1001Z M409 -868H233V-771Q233 -753 240 -741Q247 -728 260 -721Q273 -714 291 -714Q309 -714 322 -721Q335 -728 342 -741Q349 -754 349 -772V-822H409ZM314 -822V-783Q314 -772 308 -766Q302 -761 291 -761Q284 -761 279 -763Q274 -766 271 -771Q268 -775 268 -783V-822Z M409 -689H233V-587Q233 -567 240 -554Q247 -541 260 -534Q273 -528 288 -528Q305 -528 319 -536Q332 -544 339 -558L409 -522V-574L347 -603V-643H409ZM313 -643V-596Q313 -586 307 -580Q300 -575 290 -575Q283 -575 278 -577Q273 -580 270 -584Q268 -589 268 -596V-643Z M412 -412Q412 -441 402 -462Q392 -482 372 -493Q351 -504 321 -504Q290 -504 270 -493Q250 -482 240 -462Q230 -441 230 -412Q230 -383 240 -362Q250 -342 270 -331Q290 -320 321 -320Q351 -320 372 -331Q392 -342 402 -362Q412 -383 412 -412ZM376 -412Q376 -401 373 -393Q369 -384 363 -378Q357 -373 347 -370Q338 -367 327 -367H315Q304 -367 294 -370Q285 -373 279 -378Q272 -384 269 -393Q266 -401 266 -412Q266 -423 269 -432Q272 -440 279 -446Q285 -452 294 -454Q304 -457 315 -457H327Q338 -457 347 -454Q357 -452 363 -446Q369 -440 373 -432Q376 -423 376 -412Z M409 -241 233 -305V-255L332 -223Q335 -222 340 -220Q345 -219 351 -217Q356 -216 360 -215V-213Q356 -212 351 -210Q346 -209 341 -207Q336 -206 332 -205L233 -172V-125L409 -188Z M409 -102H233V44H269V-56H302V31H337V-56H373V46H409Z" /></g><g class="lp lp-a3"><path transform="scale(1,-1)" fill="currentColor" d="M606 -1256 430 -1189V-1134L606 -1068V-1117L575 -1128V-1198L606 -1208ZM541 -1187V-1139L504 -1151Q501 -1152 497 -1154Q493 -1155 488 -1157Q483 -1158 478 -1159Q473 -1161 470 -1162V-1164Q475 -1165 481 -1167Q487 -1169 493 -1171Q499 -1173 504 -1174Z M606 -1047H430V-950Q430 -932 437 -920Q444 -907 457 -900Q470 -893 488 -893Q506 -893 519 -900Q532 -907 539 -920Q546 -933 546 -951V-1001H606ZM511 -1001V-962Q511 -951 505 -945Q499 -940 488 -940Q481 -940 476 -942Q471 -945 468 -950Q466 -954 466 -962V-1001Z M606 -868H430V-771Q430 -753 437 -741Q444 -728 457 -721Q470 -714 488 -714Q506 -714 519 -721Q532 -728 539 -741Q546 -754 546 -772V-822H606ZM511 -822V-783Q511 -772 505 -766Q499 -761 488 -761Q481 -761 476 -763Q471 -766 468 -771Q466 -775 466 -783V-822Z M606 -689H430V-587Q430 -567 437 -554Q445 -541 457 -534Q470 -528 485 -528Q502 -528 516 -536Q529 -544 536 -558L606 -522V-574L544 -603V-643H606ZM510 -643V-596Q510 -586 504 -580Q497 -575 487 -575Q480 -575 475 -577Q470 -580 467 -584Q465 -589 465 -596V-643Z M609 -412Q609 -441 599 -462Q589 -482 569 -493Q548 -504 518 -504Q487 -504 467 -493Q447 -482 437 -462Q427 -441 427 -412Q427 -383 437 -362Q447 -342 467 -331Q487 -320 518 -320Q548 -320 569 -331Q589 -342 599 -362Q609 -383 609 -412ZM573 -412Q573 -401 570 -393Q566 -384 560 -378Q554 -373 545 -370Q535 -367 524 -367H512Q501 -367 491 -370Q482 -373 476 -378Q469 -384 466 -393Q463 -401 463 -412Q463 -423 466 -432Q469 -440 476 -446Q482 -452 491 -454Q501 -457 512 -457H524Q535 -457 545 -454Q554 -452 560 -446Q566 -440 570 -432Q573 -423 573 -412Z M606 -241 430 -305V-255L529 -223Q532 -222 537 -220Q542 -219 548 -217Q553 -216 557 -215V-213Q553 -212 548 -210Q543 -209 538 -207Q533 -206 529 -205L430 -172V-125L606 -188Z M606 -102H430V44H466V-56H499V31H534V-56H570V46H606Z" /></g><g class="lp lp-dis"><path transform="scale(1,-1)" fill="currentColor" d="M259 -12Q189 -12 139 18Q89 49 62 110Q36 172 36 265Q36 357 62 418Q89 479 139 510Q189 540 259 540Q287 540 314 534Q340 527 362 514Q385 500 400 479H407V725H606V0H444L430 75H423Q395 30 353 9Q311 -12 259 -12ZM321 135Q352 135 372 150Q391 165 400 190Q409 216 409 247V280Q409 303 404 324Q399 344 388 360Q378 375 361 384Q344 393 321 393Q290 393 271 380Q252 367 244 344Q235 321 235 290V237Q235 206 244 183Q252 160 271 148Q290 135 321 135Z M682 590V725H881V590ZM682 0V528H881V0Z M1200 -12Q1152 -12 1104 -2Q1057 7 1018 28Q978 48 954 80Q930 112 930 158Q930 161 930 164Q930 168 931 172H1116Q1115 169 1115 166Q1115 163 1115 161Q1116 143 1128 131Q1139 119 1158 113Q1177 107 1200 107Q1214 107 1234 109Q1253 111 1268 119Q1283 127 1283 146Q1283 163 1266 172Q1248 180 1220 186Q1191 191 1157 197Q1120 203 1082 212Q1045 222 1013 240Q981 257 962 286Q942 315 942 361Q942 413 964 448Q985 483 1022 504Q1060 524 1108 532Q1155 541 1207 541Q1252 541 1296 532Q1341 524 1378 506Q1415 487 1437 457Q1459 427 1459 384Q1459 381 1459 376Q1459 372 1458 370H1275V378Q1275 393 1264 402Q1254 412 1238 416Q1221 421 1204 421Q1198 421 1186 420Q1174 420 1162 417Q1149 414 1140 407Q1132 400 1132 387Q1132 375 1144 368Q1155 360 1174 356Q1194 351 1218 346Q1256 339 1300 332Q1344 326 1384 310Q1423 295 1448 264Q1473 232 1473 175Q1473 121 1451 84Q1429 48 1391 27Q1353 6 1304 -3Q1254 -12 1200 -12Z" /></g></svg></h1>
       <div class="copy">
         <p class="tag">Unconventional ways to build and enjoy cars. <span>Nobody approved any of it.</span></p>
         <div class="ctas">
@@ -252,11 +317,11 @@
     <section id="build">
       <div class="wrap">
         <div class="head">
-          <h2 class="cond">Project<br />MX52</h2>
-          <p>One silver NB, a tight budget and a lot of opinions. Every step goes up on the feed, including the ones that go wrong.</p>
+          <h2 class="cond rise">Project<br />MX52</h2>
+          <p class="rise">One silver NB, a tight budget and a lot of opinions. Every step goes up on the feed, including the ones that go wrong.</p>
         </div>
         <div class="build">
-          <aside class="spec" aria-label="Car details">
+          <aside class="spec rise" aria-label="Car details">
             <p class="model cond">MX52</p>
             <p class="sub">Mazda MX-5, second generation (NB)</p>
             <dl>
@@ -269,11 +334,11 @@
             <p class="more">The full mod list goes up as parts go on. Updates land on <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener">Instagram</a> first.</p>
           </aside>
           <ol class="log">
-            <li class="entry"><img src="img/containers.jpg" width="148" height="148" alt="The MX-5 parked by shipping containers, front bumper dented" loading="lazy" decoding="async" /><div><h3>Picked it up</h3><p>Dented, tired and exactly right. Day one of the project.</p></div></li>
-            <li class="entry"><img src="img/lift.jpg" width="148" height="148" alt="The MX-5 up on a lift" loading="lazy" decoding="async" /><div><h3>The noise hunt</h3><p>Up on the lift to find what's rattling. Cortisol climbs.</p><q><span lang="hu">Mi zörög?</span> <span>what's rattling?</span></q></div></li>
-            <li class="entry"><img src="img/fapad.jpg" width="148" height="148" alt="The MX-5 in the workshop" loading="lazy" decoding="async" /><div><h3>Stripped back</h3><p>Bare-bones and honest. How it should feel.</p><q><span lang="hu">Szép kis fapad 1.6</span> <span>nice little bare-bones 1.6</span></q></div></li>
-            <li class="entry"><img src="img/snow.jpg" width="148" height="148" alt="The MX-5 in the snow with underglow on" loading="lazy" decoding="async" /><div><h3>Winter, lit up</h3><p>Underglow on, snow everywhere, still driven.</p></div></li>
-            <li class="entry now" aria-current="step"><img src="img/bodywork.jpg" width="148" height="148" alt="The MX-5 in the body shop" loading="lazy" decoding="async" /><div><span class="tag-now">Happening now</span><h3>Body work</h3><p>The part nobody enjoys.</p><q>Maaan, fck body work</q></div></li>
+            <li class="entry rise"><img src="img/containers.jpg" width="148" height="148" alt="The MX-5 parked by shipping containers, front bumper dented" loading="lazy" decoding="async" /><div><h3>Picked it up</h3><p>Dented, tired and exactly right. Day one of the project.</p></div></li>
+            <li class="entry rise"><img src="img/lift.jpg" width="148" height="148" alt="The MX-5 up on a lift" loading="lazy" decoding="async" /><div><h3>The noise hunt</h3><p>Up on the lift to find what's rattling. Cortisol climbs.</p><q><span lang="hu">Mi zörög?</span> <span>what's rattling?</span></q></div></li>
+            <li class="entry rise"><img src="img/fapad.jpg" width="148" height="148" alt="The MX-5 in the workshop" loading="lazy" decoding="async" /><div><h3>Stripped back</h3><p>Bare-bones and honest. How it should feel.</p><q><span lang="hu">Szép kis fapad 1.6</span> <span>nice little bare-bones 1.6</span></q></div></li>
+            <li class="entry rise"><img src="img/snow.jpg" width="148" height="148" alt="The MX-5 in the snow with underglow on" loading="lazy" decoding="async" /><div><h3>Winter, lit up</h3><p>Underglow on, snow everywhere, still driven.</p></div></li>
+            <li class="entry now rise" aria-current="step"><img src="img/bodywork.jpg" width="148" height="148" alt="The MX-5 in the body shop" loading="lazy" decoding="async" /><div><span class="tag-now">Happening now</span><h3>Body work</h3><p>The part nobody enjoys.</p><q>Maaan, fck body work</q></div></li>
           </ol>
         </div>
       </div>
@@ -281,9 +346,9 @@
 
     <section id="cortisol">
       <div class="wrap">
-        <div class="meter">
+        <div class="meter rise">
           <div>
-            <h2 class="cond">Cortisol<br />meter</h2>
+            <h2 class="cond rise">Cortisol<br />meter</h2>
             <p>Owning a project car, measured. Pick what just happened.</p>
             <div class="triggers" role="group" aria-label="What just happened">
               <button type="button" data-level="0.1" data-label="Low" data-sub="Clean drive, windows down." aria-pressed="false">Clean drive</button>
@@ -311,22 +376,22 @@
     <section id="feed">
       <div class="wrap">
         <div class="head">
-          <h2 class="cond">From the feed</h2>
+          <h2 class="cond rise">From the feed</h2>
           <a href="https://www.instagram.com/disapproved.site/" class="btn btn-ghost" target="_blank" rel="noopener">See all on Instagram<svg class="arrow" aria-hidden="true"><use href="#arrow" /></svg></a>
         </div>
         <ul class="feed">
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/containers.jpg" width="238" height="288" alt="The MX-5 by shipping containers" loading="lazy" decoding="async" /><span class="cap">Day one</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/fuel.jpg" width="238" height="288" alt="The MX-5 at a petrol station" loading="lazy" decoding="async" /><span class="cap">Fuel stop</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/lift.jpg" width="238" height="288" alt="The MX-5 on a lift with a cortisol gauge sticker" loading="lazy" decoding="async" /><span class="cap" lang="hu">„Mi zörög?”</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/fapad.jpg" width="238" height="288" alt="The MX-5 in the workshop" loading="lazy" decoding="async" /><span class="cap" lang="hu">„Szép kis fapad 1.6”</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/snow.jpg" width="238" height="288" alt="The MX-5 in the snow with underglow" loading="lazy" decoding="async" /><span class="cap">Snow glow</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/neon.jpg" width="238" height="288" alt="A car under coloured neon lights" loading="lazy" decoding="async" /><span class="cap">Neon nights</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/field.jpg" width="238" height="288" alt="The MX-5 on gravel, bonnet open" loading="lazy" decoding="async" /><span class="cap">Off the tarmac</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/drive.jpg" width="238" height="288" alt="A row of cars parked under trees" loading="lazy" decoding="async" /><span class="cap">Drive</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/alps.jpg" width="238" height="288" alt="Mountain view over a lakeside town" loading="lazy" decoding="async" /><span class="cap">Road trip views</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/front.jpg" width="238" height="288" alt="Front end of the MX-5" loading="lazy" decoding="async" /><span class="cap">That face</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/taillights.jpg" width="238" height="288" alt="The MX-5's taillights at night" loading="lazy" decoding="async" /><span class="cap">Night shift</span></a></li>
-          <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/bodywork.jpg" width="238" height="288" alt="The MX-5 in the body shop" loading="lazy" decoding="async" /><span class="cap">Maaan, fck body work</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/containers.jpg" width="238" height="288" alt="The MX-5 by shipping containers" loading="lazy" decoding="async" /><span class="cap">Day one</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/fuel.jpg" width="238" height="288" alt="The MX-5 at a petrol station" loading="lazy" decoding="async" /><span class="cap">Fuel stop</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/lift.jpg" width="238" height="288" alt="The MX-5 on a lift with a cortisol gauge sticker" loading="lazy" decoding="async" /><span class="cap" lang="hu">„Mi zörög?”</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/fapad.jpg" width="238" height="288" alt="The MX-5 in the workshop" loading="lazy" decoding="async" /><span class="cap" lang="hu">„Szép kis fapad 1.6”</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/snow.jpg" width="238" height="288" alt="The MX-5 in the snow with underglow" loading="lazy" decoding="async" /><span class="cap">Snow glow</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/neon.jpg" width="238" height="288" alt="A car under coloured neon lights" loading="lazy" decoding="async" /><span class="cap">Neon nights</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/field.jpg" width="238" height="288" alt="The MX-5 on gravel, bonnet open" loading="lazy" decoding="async" /><span class="cap">Off the tarmac</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/drive.jpg" width="238" height="288" alt="A row of cars parked under trees" loading="lazy" decoding="async" /><span class="cap">Drive</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/alps.jpg" width="238" height="288" alt="Mountain view over a lakeside town" loading="lazy" decoding="async" /><span class="cap">Road trip views</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/front.jpg" width="238" height="288" alt="Front end of the MX-5" loading="lazy" decoding="async" /><span class="cap">That face</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/taillights.jpg" width="238" height="288" alt="The MX-5's taillights at night" loading="lazy" decoding="async" /><span class="cap">Night shift</span></a></li>
+          <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/bodywork.jpg" width="238" height="288" alt="The MX-5 in the body shop" loading="lazy" decoding="async" /><span class="cap">Maaan, fck body work</span></a></li>
         </ul>
       </div>
     </section>
@@ -335,23 +400,23 @@
       <div class="tribal" aria-hidden="true"></div>
       <div class="wrap">
         <div class="head">
-          <h2 class="cond">Shop</h2>
-          <p>Nothing for sale yet. This is what's coming, in this order.</p>
+          <h2 class="cond rise">Shop</h2>
+          <p class="rise">Nothing for sale yet. This is what's coming, in this order.</p>
         </div>
         <ul class="rows">
-          <li class="row first">
+          <li class="row first rise">
             <div class="thumb" aria-hidden="true"><div class="disc"><svg class="dis" viewBox="0 0 1507 725"><use href="#dis" /></svg></div><img src="img/badge.png" alt="" loading="lazy" decoding="async" onerror="this.remove()" /></div>
             <h3 class="cond">Stickers</h3>
             <p>Slap stickers, decals and a windscreen banner.</p>
             <span class="when">First drop</span>
           </li>
-          <li class="row">
+          <li class="row rise">
             <div class="thumb" aria-hidden="true"><svg class="icon" viewBox="0 0 48 48"><use href="#i-shirt" /></svg><img src="img/poster.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()" /></div>
             <h3 class="cond">Clothing</h3>
             <p>Heavy tees, hoodies and caps.</p>
             <span class="when">After that</span>
           </li>
-          <li class="row">
+          <li class="row rise">
             <div class="thumb" aria-hidden="true"><svg class="icon" viewBox="0 0 48 48"><use href="#i-wheel" /></svg></div>
             <h3 class="cond">Parts</h3>
             <p>Only what's been run on MX52 first.</p>
@@ -359,7 +424,7 @@
           </li>
         </ul>
 
-        <div class="signup" data-signup>
+        <div class="signup rise" data-signup>
           <div>
             <h3>Hear about the first drop</h3>
             <p class="closed-only">Email signups open with the first drop. Until then, drops are announced on Instagram first.</p>
@@ -410,6 +475,17 @@
         sub.textContent = b.dataset.sub;
       };
       btns.forEach((b) => b.addEventListener('click', () => set(b)));
+      // When the meter first scrolls into view, sweep the needle up from "low".
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const target = gauge.style.getPropertyValue('--level') || getComputedStyle(gauge).getPropertyValue('--level');
+        gauge.style.setProperty('--level', '0.02');
+        const io = new IntersectionObserver(([e]) => {
+          if (!e.isIntersecting) return;
+          io.disconnect();
+          requestAnimationFrame(() => gauge.style.setProperty('--level', target.trim()));
+        }, { threshold: 0.6 });
+        io.observe(gauge);
+      }
     })();
   </script>
 </body>

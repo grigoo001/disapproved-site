@@ -7,7 +7,8 @@ body { min-height: 100vh; line-height: 1.5; -webkit-font-smoothing: antialiased;
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button, input { font: inherit; color: inherit; }
-.wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
+:root { --gutter: clamp(16px, 4vw, 72px); }
+.wrap { width: calc(100% - 2 * var(--gutter)); margin-inline: auto; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 [hidden] { display: none !important; }
 .back {
