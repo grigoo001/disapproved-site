@@ -138,6 +138,9 @@
     .feed a:hover img { transform: scale(1.05); }
     .feed a:hover .cap, .feed a:focus-visible .cap { opacity: 1; translate: 0 0; }
     .feed a:focus-visible { outline-offset: -3px; }
+    .feed .new { position: absolute; top: 10px; left: 10px; font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 999px; background: var(--fg); color: var(--bg); }
+    .feed-updated { margin-top: 14px; color: var(--mute); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+    .feed-updated::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--low); }
 
     /* --- Shop: collection rows (REVVED's structure, Flowlife's calm) --- */
     #shop { overflow: hidden; }
@@ -415,10 +418,13 @@
     <section id="feed">
       <div class="wrap">
         <div class="head">
-          <h2 class="cond rise">From the feed</h2>
+          <div>
+            <h2 class="cond rise">From the feed</h2>
+            <p class="feed-updated" id="feed-updated" aria-live="polite" hidden></p>
+          </div>
           <a href="https://www.instagram.com/disapproved.site/" class="btn btn-ghost" target="_blank" rel="noopener">See all on Instagram<svg class="arrow" aria-hidden="true"><use href="#arrow" /></svg></a>
         </div>
-        <ul class="feed">
+        <ul class="feed" data-feed-src="data/instagram.json">
           <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/containers.jpg" width="238" height="288" alt="The MX-5 by shipping containers" loading="lazy" decoding="async" /><span class="cap">Day one</span></a></li>
           <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/fuel.jpg" width="238" height="288" alt="The MX-5 at a petrol station" loading="lazy" decoding="async" /><span class="cap">Fuel stop</span></a></li>
           <li class="rise"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="img/lift.jpg" width="238" height="288" alt="The MX-5 on a lift with a cortisol gauge sticker" loading="lazy" decoding="async" /><span class="cap" lang="hu">„Mi zörög?”</span></a></li>
@@ -500,6 +506,7 @@
   </footer>
 
   <script src="base.js"></script>
+  <script src="feed.js" defer></script>
   <script>
     // Cortisol gauge: each trigger sets --level (0..1), which rotates the needle.
     (() => {

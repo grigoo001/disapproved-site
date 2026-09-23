@@ -42,3 +42,13 @@ The feed photos in `img/*.jpg` are 238px crops from an Instagram screenshot; rep
 ## Email signup
 Set `data-endpoint` on the form in `#shop` to a form service URL (Formspree, Buttondown, …). Until then the form stays
 hidden and an Instagram link is shown instead.
+
+## Live Instagram feed
+`feed.js` fetches the source in `<ul class="feed" data-feed-src="...">` on every page load and rebuilds the grid
+(max 12 posts, "New" badge for posts under 7 days old, "Latest post …" line). If the source is missing or fails,
+the static tiles in `index.html` stay. Two supported sources:
+- **GitHub Action (default):** `.github/workflows/instagram-feed.yml` runs hourly, calls the Instagram API with the
+  `IG_ACCESS_TOKEN` repo secret, and commits `data/instagram.json` + `data/ig/*.jpg`. Needs an Instagram
+  professional (Creator/Business) account and a long-lived token from a Meta developer app.
+  The script refreshes the token on each run so it doesn't hit the 60-day expiry.
+- **Behold.so:** connect the account there, then set `data-feed-src` to the Behold JSON feed URL.
