@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DISAPPROVED — Stamp</title>
+  <meta name="description" content="Disapproved. Application denied. Made anyway." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../base.css" />
+  <style>
+    :root { --paper: #efece4; --ink: #151515; --red: #d6261c; --line: #151515; --mute: #6d6a62; }
+    body { background: var(--paper); color: var(--ink); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 14px; }
+    .display { font-family: "Archivo Black", system-ui, sans-serif; text-transform: uppercase; letter-spacing: -.02em; }
+
+    .bar { background: var(--red); color: #fff; text-align: center; font-size: 12px; padding: 8px 16px; text-transform: uppercase; letter-spacing: .06em; }
+    header { border-bottom: 2px solid var(--line); position: sticky; top: 0; z-index: 10; background: var(--paper); }
+    nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 58px; }
+    nav ul { display: flex; gap: 22px; list-style: none; text-transform: uppercase; font-size: 12px; }
+    nav ul a:hover, .cart:hover { color: var(--red); }
+    .logo { font-size: 20px; }
+    .cart { justify-self: end; text-transform: uppercase; font-size: 12px; }
+
+    .hero { padding: clamp(40px, 8vw, 96px) 0; border-bottom: 2px solid var(--line); }
+    .doc { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; text-transform: uppercase; font-size: 12px; color: var(--mute); padding-bottom: 16px; border-bottom: 1px dashed var(--mute); margin-bottom: 32px; }
+    .hero-grid { position: relative; }
+    .hero h1 { font-size: clamp(44px, 11vw, 160px); line-height: .88; }
+    .stamp {
+      position: absolute; right: 2%; top: 38%;
+      font-family: "Archivo Black", sans-serif; text-transform: uppercase;
+      font-size: clamp(22px, 4.2vw, 56px); color: var(--red);
+      border: .12em solid var(--red); padding: .12em .4em; border-radius: .12em;
+      transform: rotate(-12deg); mix-blend-mode: multiply; opacity: .92;
+      animation: slam .5s cubic-bezier(.2,1.6,.4,1) .4s both;
+    }
+    @keyframes slam { from { transform: rotate(-12deg) scale(2.2); opacity: 0; } }
+    .hero-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; margin-top: 40px; align-items: end; }
+    .hero-row p { max-width: 44ch; font-size: 15px; }
+    .actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+    .btn { display: inline-block; text-transform: uppercase; font-weight: 700; font-size: 13px; padding: 15px 22px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); box-shadow: 4px 4px 0 var(--red); transition: transform .15s, box-shadow .15s; }
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--red); }
+    .btn-ghost { background: transparent; color: var(--ink); box-shadow: none; }
+    .btn-ghost:hover { box-shadow: 4px 4px 0 var(--ink); }
+
+    section { padding: clamp(56px, 9vw, 104px) 0; border-bottom: 2px solid var(--line); }
+    .head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+    h2 { font-size: clamp(30px, 5vw, 64px); line-height: .92; }
+    .head span { text-transform: uppercase; font-size: 12px; color: var(--mute); }
+
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid var(--line); border-left: 2px solid var(--line); }
+    .card { border-right: 2px solid var(--line); border-bottom: 2px solid var(--line); padding: 14px; position: relative; }
+    .card .ph { aspect-ratio: 1; background: repeating-linear-gradient(45deg, transparent 0 10px, rgba(0,0,0,.05) 10px 11px); display: grid; place-items: center; font-family: "Archivo Black"; font-size: 30px; color: rgba(0,0,0,.18); }
+    .card .tag { position: absolute; top: 22px; left: 22px; background: var(--red); color: #fff; font-size: 11px; padding: 3px 7px; text-transform: uppercase; }
+    .card h3 { font-size: 13px; text-transform: uppercase; margin-top: 12px; font-weight: 700; }
+    .card .row { display: flex; justify-content: space-between; margin-top: 4px; color: var(--mute); }
+    .card:hover h3 { color: var(--red); }
+
+    .file { display: grid; grid-template-columns: 200px 1fr; gap: 0; border: 2px solid var(--line); }
+    .file dt, .file dd { padding: 16px 18px; border-bottom: 1px dashed var(--mute); }
+    .file dt { text-transform: uppercase; font-size: 12px; color: var(--mute); border-right: 2px solid var(--line); }
+    .file dd { font-size: 16px; }
+    .file dt:last-of-type, .file dd:last-of-type { border-bottom: 0; }
+    .file .no { color: var(--red); font-weight: 700; }
+
+    .appeal { background: var(--ink); color: var(--paper); }
+    .appeal h2 { color: var(--paper); }
+    .appeal h2 em { color: var(--red); font-style: normal; }
+    form { display: flex; gap: 0; max-width: 520px; margin-top: 28px; border: 2px solid var(--paper); }
+    input { flex: 1; min-width: 0; background: transparent; border: 0; padding: 16px 18px; color: var(--paper); }
+    input::placeholder { color: #8b877e; }
+    input:focus { outline: 2px solid var(--red); outline-offset: -2px; }
+    form button { background: var(--red); color: #fff; border: 0; padding: 0 22px; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+    [data-msg] { margin-top: 12px; min-height: 1.5em; color: #b9b4a8; }
+
+    footer { padding: 24px 0 80px; font-size: 12px; text-transform: uppercase; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+    @media (max-width: 820px) {
+      nav { grid-template-columns: auto 1fr; }
+      nav ul { display: none; }
+      .hero-row { grid-template-columns: 1fr; }
+      .actions { justify-content: flex-start; }
+      .stamp { position: static; display: inline-block; margin-top: 20px; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .file { grid-template-columns: 1fr; }
+      .file dt { border-right: 0; border-bottom: 0; padding-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">Application status: denied · Shipping anyway, worldwide</div>
+  <header>
+    <nav class="wrap">
+      <ul>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#file">File</a></li>
+        <li><a href="#appeal">Appeal</a></li>
+      </ul>
+      <a href="#" class="logo display">Disapproved</a>
+      <a href="#" class="cart">Cart [0]</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero wrap">
+      <div class="doc"><span>Form DSP-01</span><span>Ref. 2026/AUT</span><span>Reviewed by: nobody that matters</span></div>
+      <div class="hero-grid">
+        <h1 class="display reveal">We asked.<br />They said no.<br />We made it.</h1>
+        <div class="stamp" aria-hidden="true">Disapproved</div>
+      </div>
+      <div class="hero-row">
+        <p class="reveal">Clothing and objects for people whose best ideas got rejected first. Small runs, printed loud, no permission requested.</p>
+        <div class="actions reveal">
+          <a href="#shop" class="btn">Shop Drop 01</a>
+          <a href="#file" class="btn btn-ghost">Read the file</a>
+        </div>
+      </div>
+    </div>
+
+    <section id="shop" class="wrap">
+      <div class="head"><h2 class="display reveal">Drop 01</h2><span>4 items · limited run</span></div>
+      <div class="grid">
+        <a href="#" class="card reveal"><span class="tag">New</span><div class="ph">01</div><h3>Denied Tee</h3><div class="row"><span>Black</span><span>€48</span></div></a>
+        <a href="#" class="card reveal"><div class="ph">02</div><h3>Stamp Hoodie</h3><div class="row"><span>Bone</span><span>€110</span></div></a>
+        <a href="#" class="card reveal"><span class="tag">Low</span><div class="ph">03</div><h3>Form Cap</h3><div class="row"><span>Red</span><span>€38</span></div></a>
+        <a href="#" class="card reveal"><div class="ph">04</div><h3>Sticker Pack</h3><div class="row"><span>x6</span><span>€9</span></div></a>
+      </div>
+    </section>
+
+    <section id="file" class="wrap">
+      <div class="head"><h2 class="display reveal">The file</h2><span>Case no. 0001</span></div>
+      <dl class="file reveal">
+        <dt>Applicant</dt><dd>Disapproved</dd>
+        <dt>Request</dt><dd>To make things nobody signed off on.</dd>
+        <dt>Decision</dt><dd class="no">Denied.</dd>
+        <dt>Outcome</dt><dd>Made it anyway. You're looking at it.</dd>
+      </dl>
+    </section>
+
+    <section id="appeal" class="appeal">
+      <div class="wrap">
+        <h2 class="display reveal">File an <em>appeal</em>.<br />Get early access.</h2>
+        <form data-signup="Appeal received. You'll hear from us first." class="reveal">
+          <label for="email-b" class="sr-only">Email</label>
+          <input id="email-b" type="email" required placeholder="your@email.com" />
+          <button type="submit">Submit</button>
+        </form>
+        <p data-msg aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap"><span>© 2026 disapproved.site</span><span>Instagram · TikTok · Contact</span></div>
+  </footer>
+
+  <a class="back" href="index.html">← All directions</a>
+  <script src="../base.js"></script>
+</body>
+</html>

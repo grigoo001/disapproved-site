@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>disapproved.site</title>
+  <meta name="description" content="Unconventional ways to build and enjoy cars. Follow Project MX52." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="base.css" />
+  <style>
+    :root {
+      --bg: #0c0c0c; --panel: #151515; --panel-2: #1c1c1c; --fg: #f4f4f2; --mute: #8e8e8e;
+      --line: #262626; --silver: #c9ccd1; --glow: #8b6cff;
+      --low: #3fbf5f; --mid: #f2b02e; --high: #e8412c;
+    }
+    body { background: var(--bg); color: var(--fg); font-family: "Inter", system-ui, sans-serif; }
+    .cond { font-family: "Archivo", sans-serif; font-stretch: 62%; font-weight: 900; text-transform: uppercase; letter-spacing: .01em; }
+    .heavy { font-family: "Archivo", sans-serif; font-weight: 900; letter-spacing: -.05em; }
+
+    /* --- Logo lockup: "dis" + stacked APPROVE, mirrors the Instagram avatar --- */
+    .mark { display: inline-flex; align-items: flex-end; gap: .04em; line-height: 1; }
+    .mark .stack { display: flex; flex-direction: column; writing-mode: vertical-rl; transform: rotate(180deg); font-family: "Archivo", sans-serif; font-stretch: 62%; font-weight: 900; text-transform: uppercase; font-size: .215em; line-height: .84; letter-spacing: .01em; white-space: nowrap; }
+    .mark .dis { font-family: "Archivo", sans-serif; font-weight: 900; letter-spacing: -.06em; font-size: 1em; line-height: .78; }
+    .badge-mark { width: 40px; height: 40px; border-radius: 50%; background: var(--fg); color: var(--bg); display: grid; place-items: center; font-size: 17px; flex: none; }
+
+    .ticker { overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--line); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); padding: 9px 0; }
+    .ticker div { display: inline-block; animation: scroll 38s linear infinite; }
+    .ticker b { color: var(--fg); font-weight: 600; }
+    .ticker .hot { color: var(--high); }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+
+    header { position: sticky; top: 0; z-index: 20; background: rgba(12,12,12,.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
+    nav ul { display: flex; gap: 26px; list-style: none; font-size: 14px; color: var(--mute); }
+    nav ul a:hover { color: var(--fg); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; padding: 13px 20px; border-radius: 10px; background: var(--fg); color: var(--bg); transition: transform .2s, background .2s; white-space: nowrap; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--fg); border: 1px solid #3a3a3a; }
+    .btn-ghost:hover { background: var(--panel); }
+    .btn-sm { padding: 9px 14px; font-size: 13px; }
+
+    /* --- Hero --- */
+    .hero { padding: clamp(40px, 7vw, 88px) 0 clamp(56px, 8vw, 96px); display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+    .hero h1 .mark { font-size: clamp(120px, 19vw, 260px); }
+    .hero .tag { font-size: clamp(22px, 2.6vw, 32px); line-height: 1.15; letter-spacing: -.02em; font-weight: 600; max-width: 20ch; margin-top: 28px; }
+    .hero .tag em { font-style: normal; color: var(--mute); }
+    .hero .ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+    .stats { display: flex; gap: 28px; margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+    .stats strong { display: block; font-family: "Archivo"; font-stretch: 62%; font-weight: 900; font-size: 34px; line-height: 1; }
+    .stats span { font-size: 12px; color: var(--mute); text-transform: uppercase; letter-spacing: .08em; }
+
+    .collage { position: relative; height: clamp(420px, 42vw, 540px); }
+    .shot { position: absolute; width: 56%; aspect-ratio: 238/288; border-radius: 14px; overflow: hidden; border: 6px solid var(--fg); box-shadow: 0 30px 60px -20px rgba(0,0,0,.8); transition: transform .4s; }
+    .shot img { width: 100%; height: 100%; object-fit: cover; }
+    .shot figcaption { display: none;  position: absolute; left: 0; right: 0; top: 10px; text-align: center; font-weight: 700; font-size: 14px; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.8); padding: 0 8px; }
+    .shot.s1 { left: 0; top: 8%; transform: rotate(-6deg); z-index: 1; }
+    .shot.s2 { right: 0; top: 0; transform: rotate(5deg); z-index: 2; }
+    .shot.s3 { left: 22%; bottom: 0; transform: rotate(-1deg); z-index: 3; }
+    .collage:hover .s1 { transform: rotate(-9deg) translateX(-10px); }
+    .collage:hover .s2 { transform: rotate(8deg) translateX(10px); }
+    .sticker { overflow: hidden; position: absolute; z-index: 4; right: 2%; bottom: 14%; background: var(--fg); color: var(--bg); border-radius: 999px; width: 104px; height: 104px; display: grid; place-items: center; transform: rotate(12deg); font-size: 40px; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+
+    section { padding: clamp(64px, 9vw, 112px) 0; border-top: 1px solid var(--line); }
+    .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: var(--mute); margin-bottom: 14px; }
+    h2 { font-size: clamp(44px, 7vw, 96px); line-height: .88; }
+    .head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
+    .head p { max-width: 42ch; color: #bdbdbd; }
+
+    /* --- Project MX52 --- */
+    .build { display: grid; grid-template-columns: 360px 1fr; gap: 20px; }
+    .spec { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 24px; align-self: start; position: sticky; top: 84px; }
+    .spec h3 { font-family: "Archivo"; font-stretch: 62%; font-weight: 900; font-size: 44px; line-height: 1; text-transform: uppercase; }
+    .spec .sub { color: var(--mute); font-size: 14px; margin: 4px 0 18px; }
+    .spec dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 16px; font-size: 14px; padding: 16px 0; border-block: 1px solid var(--line); }
+    .spec dt { color: var(--mute); }
+    .spec dd { text-align: right; font-weight: 500; }
+    .progress { margin-top: 18px; }
+    .progress .row { display: flex; justify-content: space-between; font-size: 13px; color: var(--mute); margin-bottom: 8px; }
+    .progress .row b { color: var(--fg); }
+    .bar { height: 8px; background: var(--panel-2); border-radius: 99px; overflow: hidden; }
+    .bar i { display: block; height: 100%; width: 72%; background: linear-gradient(90deg, var(--silver), var(--fg)); border-radius: 99px; }
+    .spec .note { font-size: 12px; color: var(--mute); margin-top: 14px; }
+
+    .log { display: grid; gap: 14px; }
+    .entry { display: grid; grid-template-columns: 150px 1fr; gap: 20px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 12px; transition: border-color .3s; }
+    .entry:hover { border-color: #3a3a3a; }
+    .entry img { width: 150px; aspect-ratio: 1; object-fit: cover; border-radius: 10px; }
+    .entry .n { font-family: "Archivo"; font-stretch: 62%; font-weight: 900; font-size: 14px; color: var(--mute); letter-spacing: .1em; }
+    .entry h4 { font-size: 22px; letter-spacing: -.02em; margin: 2px 0 6px; }
+    .entry p { color: #bdbdbd; font-size: 15px; }
+    .entry q { display: inline-block; margin-top: 8px; font-size: 13px; color: var(--fg); background: var(--panel-2); padding: 4px 10px; border-radius: 8px; quotes: "\201E" "\201D"; }
+    .entry q small { color: var(--mute); margin-left: 6px; }
+    .entry.now { border-color: var(--fg); }
+    .entry.now .n::after { content: " · in progress"; color: var(--high); }
+
+    /* --- Cortisol meter --- */
+    .meter { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; background: var(--fg); color: var(--bg); border-radius: 24px; padding: clamp(24px, 5vw, 56px); }
+    .meter h2 { color: var(--bg); }
+    .meter p { color: #444; margin-top: 16px; max-width: 38ch; }
+    .gauge { position: relative; width: min(100%, 420px); margin-inline: auto; }
+    .gauge svg { width: 100%; height: auto; overflow: visible; }
+    .gauge .needle { transform-origin: 150px 150px; transition: transform .9s cubic-bezier(.3,1.5,.5,1); }
+    .gauge .readout { text-align: center; margin-top: -6px; }
+    .gauge .readout b { font-family: "Archivo"; font-stretch: 62%; font-weight: 900; font-size: 44px; text-transform: uppercase; }
+    .gauge .readout span { display: block; font-size: 14px; color: #555; }
+    .triggers { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .triggers button { cursor: pointer; border: 1px solid #cfcfcf; background: #fff; border-radius: 999px; padding: 9px 14px; font-size: 13px; font-weight: 600; transition: background .2s, border-color .2s; }
+    .triggers button:hover, .triggers button[aria-pressed="true"] { background: var(--bg); color: var(--fg); border-color: var(--bg); }
+
+    /* --- Feed --- */
+    .feed { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; border-radius: 16px; overflow: hidden; }
+    .feed a { position: relative; aspect-ratio: 238/288; overflow: hidden; background: var(--panel); }
+    .feed img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s, filter .5s; }
+    .feed a::after { content: attr(data-cap); position: absolute; inset: auto 0 0 0; padding: 30px 12px 12px; font-size: 13px; font-weight: 600; background: linear-gradient(transparent, rgba(0,0,0,.85)); opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s; }
+    .feed a:hover img { transform: scale(1.05); }
+    .feed a:hover::after, .feed a:focus-visible::after { opacity: 1; transform: none; }
+
+    /* --- Merch --- */
+    .merch { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .item { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 14px; }
+    .item .art { aspect-ratio: 1; border-radius: 12px; display: grid; place-items: center; background: var(--panel-2); position: relative; overflow: hidden; }
+    .item .soon { position: absolute; top: 12px; left: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; background: var(--fg); color: var(--bg); padding: 4px 8px; border-radius: 6px; }
+    .item h4 { margin-top: 14px; font-size: 16px; }
+    .item p { color: var(--mute); font-size: 14px; }
+    .die { width: 62%; aspect-ratio: 1; overflow: hidden; border-radius: 50%; background: var(--fg); color: var(--bg); display: grid; place-items: center; font-size: clamp(44px, 7vw, 84px); box-shadow: 0 0 0 8px var(--panel-2), 0 0 0 10px #fff3; transform: rotate(-8deg); }
+    .tee { width: 70%; aspect-ratio: 1; background: #232323; clip-path: polygon(30% 0, 70% 0, 100% 16%, 90% 36%, 80% 30%, 80% 100%, 20% 100%, 20% 30%, 10% 36%, 0 16%); display: grid; place-items: center; }
+    .tee .mark { font-size: clamp(30px, 4vw, 48px); color: var(--fg); margin-top: -12%; }
+    .wheel { width: 64%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, #0c0c0c 0 9%, #bfc2c7 9.5% 14%, transparent 14.5%), repeating-conic-gradient(from 0deg, #bfc2c7 0 12deg, #2a2a2a 12deg 72deg); box-shadow: inset 0 0 0 10px #bfc2c7, 0 0 0 14px #111, 0 0 0 16px #333; animation: spin 14s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .frame { width: 76%; aspect-ratio: 3.6/1; border-radius: 10px; background: #fff; color: var(--bg); display: flex; align-items: center; justify-content: center; gap: 10px; border: 3px solid #bbb; }
+    .frame b { font-family: "Archivo"; font-stretch: 62%; font-weight: 900; font-size: clamp(18px, 2.4vw, 28px); letter-spacing: .08em; }
+
+    form { display: flex; gap: 8px; max-width: 460px; margin-top: 28px; }
+    input { flex: 1; min-width: 0; padding: 14px 16px; border-radius: 10px; border: 1px solid #333; background: var(--panel); }
+    input:focus { outline: 2px solid var(--fg); outline-offset: 1px; }
+    [data-msg] { margin-top: 12px; min-height: 1.5em; color: var(--mute); font-size: 14px; }
+
+    footer { border-top: 1px solid var(--line); padding: 56px 0 88px; }
+    footer .wrap { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+    footer .mark { font-size: clamp(80px, 12vw, 160px); color: #262626; }
+    footer .links { display: flex; gap: 20px; color: var(--mute); font-size: 14px; }
+    footer .links a:hover { color: var(--fg); }
+
+    @media (max-width: 960px) {
+      nav ul { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .collage { max-width: 440px; width: 100%; margin-inline: auto; }
+      .build { grid-template-columns: 1fr; }
+      .spec { position: static; }
+      .meter { grid-template-columns: 1fr; }
+      .feed { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .entry { grid-template-columns: 96px 1fr; gap: 14px; }
+      .entry img { width: 96px; }
+      .entry h4 { font-size: 18px; }
+      .entry p { font-size: 14px; }
+      .merch { grid-template-columns: 1fr; }
+      form { flex-direction: column; }
+      .brand .name { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ticker" aria-hidden="true">
+    <div>&nbsp; Project MX52 &nbsp;/&nbsp; <b>Status: body work</b> &nbsp;/&nbsp; Cortisol: <b class="hot">high</b> &nbsp;/&nbsp; Unconventional ways to build and enjoy cars &nbsp;/&nbsp; Shop coming soon &nbsp;/&nbsp; Project MX52 &nbsp;/&nbsp; <b>Status: body work</b> &nbsp;/&nbsp; Cortisol: <b class="hot">high</b> &nbsp;/&nbsp; Unconventional ways to build and enjoy cars &nbsp;/&nbsp; Shop coming soon &nbsp;/</div>
+  </div>
+
+  <header>
+    <nav class="wrap">
+      <a href="#" class="brand" aria-label="disapproved.site home">
+        <span class="badge-mark"><span class="mark"><span class="stack"><span>approve</span><span>approve</span></span><span class="dis">dis</span></span></span>
+        <span class="name">disapproved.site</span>
+      </a>
+      <ul>
+        <li><a href="#build">Project MX52</a></li>
+        <li><a href="#cortisol">Cortisol</a></li>
+        <li><a href="#feed">Feed</a></li>
+        <li><a href="#merch">Shop</a></li>
+      </ul>
+      <a href="https://www.instagram.com/disapproved.site/" class="btn btn-sm" target="_blank" rel="noopener">Follow on IG ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero wrap">
+      <div>
+        <h1 class="reveal">
+          <span class="sr-only">disapproved</span>
+          <span class="mark" aria-hidden="true"><span class="stack"><span>approve</span><span>approve</span><span>approve</span></span><span class="dis">dis</span></span>
+        </h1>
+        <p class="tag reveal">Unconventional ways to build and enjoy cars. <em>Nobody approved any of it.</em></p>
+        <div class="ctas reveal">
+          <a href="#build" class="btn">Follow the build →</a>
+          <a href="https://www.instagram.com/disapproved.site/" class="btn btn-ghost" target="_blank" rel="noopener">Watch the reels</a>
+        </div>
+        <div class="stats reveal">
+          <div><strong>MX52</strong><span>Current project</span></div>
+          <div><strong>1.6</strong><span>Litres, no excuses</span></div>
+          <div><strong>28</strong><span>Posts so far</span></div>
+        </div>
+      </div>
+      <div class="collage reveal" aria-label="Project MX52 photos">
+        <figure class="shot s1"><img src="img/snow.jpg" alt="Silver MX-5 in the snow with purple underglow" /></figure>
+        <figure class="shot s2"><img src="img/fapad.jpg" alt="Silver MX-5 in a garage" /></figure>
+        <figure class="shot s3"><img src="img/fuel.jpg" alt="Silver MX-5 at a petrol station" /></figure>
+        <div class="sticker" aria-hidden="true"><span class="mark"><span class="stack"><span>approve</span><span>approve</span></span><span class="dis">dis</span></span></div>
+      </div>
+    </div>
+
+    <section id="build">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow reveal">The build</p><h2 class="cond reveal">Project<br />MX52</h2></div>
+          <p class="reveal">One silver NB, a tight budget and a lot of opinions. Every step goes up on the feed, including the ones that go wrong.</p>
+        </div>
+        <div class="build">
+          <aside class="spec reveal">
+            <h3>MX52</h3>
+            <p class="sub">Mazda MX-5 NB · Silver</p>
+            <dl>
+              <dt>Engine</dt><dd>1.6 NA</dd>
+              <dt>Wheels</dt><dd>Hunting 5×114.3</dd>
+              <dt>Lighting</dt><dd>Underglow, obviously</dd>
+              <dt>Body</dt><dd>Work in progress</dd>
+              <dt>Approved by</dt><dd>Nobody</dd>
+            </dl>
+            <div class="progress">
+              <div class="row"><span>Build progress</span><b>72%</b></div>
+              <div class="bar"><i></i></div>
+            </div>
+            <p class="note">Specs are placeholders. Swap in the real mod list.</p>
+          </aside>
+          <div class="log">
+            <article class="entry reveal"><img src="img/containers.jpg" alt="MX-5 parked by shipping containers" loading="lazy" /><div><span class="n">01</span><h4>Picked it up</h4><p>Dented, tired and perfect. Day one of the project.</p></div></article>
+            <article class="entry reveal"><img src="img/lift.jpg" alt="MX-5 on a lift" loading="lazy" /><div><span class="n">02</span><h4>The noise hunt</h4><p>Up on the lift to find out what's rattling. Cortisol climbs.</p><q>Mi zörög?<small>what's rattling?</small></q></div></article>
+            <article class="entry reveal"><img src="img/fapad.jpg" alt="MX-5 in the workshop" loading="lazy" /><div><span class="n">03</span><h4>Stripped back</h4><p>Bare-bones and honest. Exactly how it should feel.</p><q>Szép kis fapad 1.6<small>nice little bare-bones 1.6</small></q></div></article>
+            <article class="entry reveal"><img src="img/snow.jpg" alt="MX-5 in snow with underglow" loading="lazy" /><div><span class="n">04</span><h4>Winter, lit up</h4><p>Underglow on, roof down (probably), snow everywhere.</p></div></article>
+            <article class="entry now reveal"><img src="img/bodywork.jpg" alt="MX-5 in the body shop" loading="lazy" /><div><span class="n">05</span><h4>Body work</h4><p>The part nobody enjoys. Happening right now.</p><q>Maaan, fck body work</q></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cortisol">
+      <div class="wrap">
+        <div class="meter">
+          <div>
+            <p class="eyebrow reveal" style="color:#666">Live-ish</p>
+            <h2 class="cond reveal">Cortisol<br />meter</h2>
+            <p class="reveal">Owning a project car, measured. Pick what just happened.</p>
+            <div class="triggers reveal" role="group" aria-label="Cortisol triggers">
+              <button type="button" data-level="0.1" data-label="Low" data-sub="Clean drive, windows down.">Clean drive</button>
+              <button type="button" data-level="0.5" data-label="Medium" data-sub="5×114.3 wheels on fb marketplace…">Marketplace wheels</button>
+              <button type="button" data-level="0.78" data-label="High" data-sub="„Honnan jön ez a hang?” Where's that noise from?">New noise</button>
+              <button type="button" data-level="0.97" data-label="Maximum" data-sub="Body work. Enough said." aria-pressed="true">Body work</button>
+            </div>
+          </div>
+          <div class="gauge reveal">
+            <svg viewBox="0 0 300 170" role="img" aria-labelledby="gaugeLabel">
+              <title id="gaugeLabel">Cortisol gauge</title>
+              <path d="M30 150 A120 120 0 0 1 90 46" stroke="var(--low)" stroke-width="26" fill="none" />
+              <path d="M92 45 A120 120 0 0 1 208 45" stroke="var(--mid)" stroke-width="26" fill="none" />
+              <path d="M210 46 A120 120 0 0 1 270 150" stroke="var(--high)" stroke-width="26" fill="none" />
+              <text x="30" y="168" font-size="11" text-anchor="middle" fill="#666" font-family="Inter">LOW</text>
+              <text x="270" y="168" font-size="11" text-anchor="middle" fill="#666" font-family="Inter">HIGH</text>
+              <g class="needle" id="needle">
+                <line x1="150" y1="150" x2="150" y2="44" stroke="#0c0c0c" stroke-width="5" stroke-linecap="round" />
+              </g>
+              <circle cx="150" cy="150" r="11" fill="#0c0c0c" />
+            </svg>
+            <div class="readout" aria-live="polite"><b id="gLabel">Maximum</b><span id="gSub">Body work. Enough said.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="feed">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow reveal">@disapproved.site</p><h2 class="cond reveal">From the feed</h2></div>
+          <a href="https://www.instagram.com/disapproved.site/" class="btn btn-ghost reveal" target="_blank" rel="noopener">See all on Instagram ↗</a>
+        </div>
+        <div class="feed reveal">
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="Day one"><img src="img/containers.jpg" alt="MX-5 by containers" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="Fuel stop"><img src="img/fuel.jpg" alt="MX-5 at petrol station" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="„Mi zörög?”"><img src="img/lift.jpg" alt="MX-5 on lift" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="„Szép kis fapad 1.6”"><img src="img/fapad.jpg" alt="MX-5 in garage" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="Snow glow"><img src="img/snow.jpg" alt="MX-5 in snow" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="Neon nights"><img src="img/neon.jpg" alt="Car under neon lights" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="Off the tarmac"><img src="img/field.jpg" alt="MX-5 on gravel" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="Drive"><img src="img/drive.jpg" alt="Cars parked by trees" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="Road trip views"><img src="img/alps.jpg" alt="Mountain view over a lake town" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="That face"><img src="img/front.jpg" alt="MX-5 front end" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="Night shift"><img src="img/taillights.jpg" alt="MX-5 taillights at night" loading="lazy" /></a>
+          <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener" data-cap="Maaan, fck body work"><img src="img/bodywork.jpg" alt="MX-5 in body shop" loading="lazy" /></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="merch">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow reveal">Shop · coming soon</p><h2 class="cond reveal">Wear it.<br />Bolt it on.</h2></div>
+          <p class="reveal">Starting with stickers, then clothing, then parts we've actually run on MX52. Join the list and you'll hear before anyone else.</p>
+        </div>
+        <div class="merch">
+          <div class="item reveal"><div class="art"><span class="soon">Drop 01</span><div class="die"><span class="mark"><span class="stack"><span>approve</span><span>approve</span><span>approve</span></span><span class="dis">dis</span></span></div></div><h4>Stickers</h4><p>Die-cut logo vinyl, windscreen banners</p></div>
+          <div class="item reveal"><div class="art"><span class="soon">Drop 02</span><div class="tee"><span class="mark"><span class="stack"><span>approve</span><span>approve</span></span><span class="dis">dis</span></span></div></div><h4>Clothing</h4><p>Heavy tees, hoodies, caps</p></div>
+          <div class="item reveal"><div class="art"><span class="soon">Later</span><div class="wheel" aria-hidden="true"><i></i></div></div><h4>Parts</h4><p>Only what's been tested on MX52 first</p></div>
+        </div>
+        <form data-signup="You're on the list. You'll hear about Drop 01 first." class="reveal">
+          <label for="email-d" class="sr-only">Email</label>
+          <input id="email-d" type="email" required placeholder="Email for the first drop" />
+          <button class="btn" type="submit">Notify me</button>
+        </form>
+        <p data-msg aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span class="mark" aria-hidden="true"><span class="stack"><span>approve</span><span>approve</span><span>approve</span></span><span class="dis">dis</span></span>
+      <div>
+        <div class="links"><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener">Instagram</a><a href="https://www.threads.net/@disapproved.site" target="_blank" rel="noopener">Threads</a><a href="#merch">Shop</a></div>
+        <p style="color:var(--mute);font-size:13px;margin-top:10px">© 2026 disapproved.site · Unconventional ways to build and enjoy cars.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="back" href="directions/">← Design directions</a>
+  <script src="base.js"></script>
+  <script>
+    // Cortisol gauge: level 0..1 maps to -90deg..+90deg.
+    (() => {
+      const needle = document.getElementById('needle');
+      const label = document.getElementById('gLabel');
+      const sub = document.getElementById('gSub');
+      const btns = document.querySelectorAll('.triggers button');
+      const set = (b) => {
+        btns.forEach((x) => x.setAttribute('aria-pressed', x === b));
+        needle.style.transform = `rotate(${(+b.dataset.level - 0.5) * 180}deg)`;
+        label.textContent = b.dataset.label;
+        sub.textContent = b.dataset.sub;
+      };
+      btns.forEach((b) => b.addEventListener('click', () => set(b)));
+      set(document.querySelector('.triggers [aria-pressed="true"]'));
+    })();
+  </script>
+</body>
+</html>

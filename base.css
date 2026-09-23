@@ -1,0 +1,23 @@
+/* Shared reset + helpers for all disapproved.site directions */
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { min-height: 100vh; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; color: inherit; }
+.wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.back {
+  position: fixed; left: 16px; bottom: 16px; z-index: 50;
+  font: 600 12px/1 system-ui, sans-serif; letter-spacing: .04em;
+  padding: 10px 14px; border-radius: 999px;
+  background: rgba(0,0,0,.8); color: #fff; backdrop-filter: blur(6px);
+}
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { animation: none !important; }
+}

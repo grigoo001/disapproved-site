@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disapproved Directions</title>
+  <meta name="description" content="Four landing-page design directions for disapproved.site and the plan to build it." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800&family=Anton&family=Archivo+Black&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../base.css" />
+  <style>
+    :root { --bg: #f6f6f4; --fg: #111; --mute: #6b6b6b; --line: #e2e2de; --card: #fff; }
+    body { background: var(--bg); color: var(--fg); font-family: "Inter Tight", system-ui, sans-serif; }
+    header { padding: clamp(48px, 9vw, 96px) 0 40px; }
+    .kicker { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--mute); }
+    h1 { font-size: clamp(40px, 7vw, 88px); line-height: .95; letter-spacing: -.05em; font-weight: 800; margin: 14px 0 18px; }
+    h1 s { text-decoration-color: #d6261c; text-decoration-thickness: .08em; }
+    .lead { max-width: 60ch; font-size: 18px; color: #333; }
+    .ref { display: inline-block; margin-top: 18px; font-size: 14px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); }
+
+    h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--mute); margin: 56px 0 18px; font-weight: 600; }
+
+    .dirs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .dir.rec { grid-column: 1 / -1; flex-direction: row; border: 2px solid #111; }
+    .dir.rec .prev { flex: 1.1; aspect-ratio: auto; min-height: 280px; background: #0c0c0c; }
+    .dir.rec .body { flex: 1; }
+    .dmark { display: inline-flex; align-items: flex-end; gap: .04em; font-size: 110px; color: #f4f4f2; line-height: 1; }
+    .dmark .st { display: flex; flex-direction: column; writing-mode: vertical-rl; transform: rotate(180deg); font: 900 .215em/.84 "Archivo Black", sans-serif; text-transform: uppercase; white-space: nowrap; }
+    .dmark .d { font: 900 1em/.78 "Archivo Black", sans-serif; letter-spacing: -.06em; }
+    .dir { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; }
+    .dir:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -20px rgba(0,0,0,.25); }
+    .prev { aspect-ratio: 16/10; display: grid; place-items: center; position: relative; overflow: hidden; }
+    .prev.a { background: #fafafa; border-bottom: 1px solid var(--line); }
+    .prev.a b { font: 900 42px/1 "Inter Tight"; letter-spacing: -.06em; }
+    .prev.a b span { color: transparent; -webkit-text-stroke: 1px #111; }
+    .prev.b { background: #efece4; }
+    .prev.b b { font: 400 30px/1 "Archivo Black"; text-transform: uppercase; color: #d6261c; border: 4px solid #d6261c; padding: 4px 12px; transform: rotate(-10deg); border-radius: 4px; }
+    .prev.c { background: radial-gradient(70% 70% at 70% 30%, rgba(255,45,45,.35), transparent 70%), #0b0b0c; }
+    .prev.c b { font: 400 44px/1 "Anton"; text-transform: uppercase; color: #f2f2f0; }
+    .prev.c b i { font-style: normal; color: #ff2d2d; }
+    .body { padding: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .body h3 { font-size: 22px; letter-spacing: -.02em; }
+    .body h3 small { font-size: 13px; color: var(--mute); font-weight: 500; margin-left: 6px; }
+    .body p { color: #444; font-size: 15px; }
+    .sw { display: flex; gap: 6px; }
+    .sw span { width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); }
+    dl { font-size: 13px; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; color: #444; }
+    dt { color: var(--mute); }
+    .open { margin-top: auto; font-weight: 600; font-size: 14px; }
+    .tagfit { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #111; color: #fff; align-self: flex-start; }
+
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: s; }
+    .step { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+    .step::before { counter-increment: s; content: "0" counter(s); font: 800 13px/1 "Inter Tight"; color: #d6261c; }
+    .step h4 { font-size: 17px; margin: 10px 0 8px; }
+    .step ul { padding-left: 18px; font-size: 14px; color: #444; }
+    .step li { margin-bottom: 4px; }
+
+    table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; font-size: 14px; }
+    th, td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--mute); font-weight: 600; }
+    tr:last-child td { border-bottom: 0; }
+    .tbl { overflow-x: auto; }
+
+    footer { padding: 56px 0 48px; color: var(--mute); font-size: 14px; }
+
+    @media (max-width: 900px) {
+      .dirs { grid-template-columns: 1fr; }
+      .dir.rec { flex-direction: column; }
+      .dir.rec .prev { min-height: 220px; }
+      .steps { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <p class="kicker">disapproved.site · landing page · round 1</p>
+      <h1>Four directions for <s>DIS</s>APPROVED</h1>
+      <p class="lead"><strong>D is the recommended direction.</strong> It's built from the real @disapproved.site feed: a car-build brand first (Project MX52), with a shop that grows from stickers to clothing to parts. A–C were early explorations of a pure streetwear store, closer to the revved.pl reference.</p>
+      <span class="ref">References: @disapproved.site · revved.pl</span>
+    </header>
+
+    <h2>Directions</h2>
+    <div class="dirs">
+      <a class="dir rec" href="../">
+        <div class="prev"><span class="dmark"><span class="st"><span>approve</span><span>approve</span><span>approve</span></span><span class="d">dis</span></span></div>
+        <div class="body">
+          <span class="tagfit">Recommended · based on your Instagram</span>
+          <h3>D · Garage <small>build brand → shop</small></h3>
+          <p>Your real logo lockup, Project MX52 build log, a playable cortisol meter, the Instagram feed, and a shop section that grows from stickers to clothing to parts.</p>
+          <div class="sw"><span style="background:#0c0c0c"></span><span style="background:#f4f4f2"></span><span style="background:#c9ccd1"></span><span style="background:#e8412c"></span></div>
+          <dl><dt>Type</dt><dd>Archivo (black + condensed) + Inter</dd><dt>Feel</dt><dd>Raw, honest, garage humour</dd><dt>Best if</dt><dd>The build is the brand and merch comes next</dd></dl>
+          <span class="open">Open direction D →</span>
+        </div>
+      </a>
+      <a class="dir" href="a-mono.html">
+        <div class="prev a"><b>DIS<span>APPROVED</span></b></div>
+        <div class="body">
+          <h3>A · Mono <small>quiet luxury</small></h3>
+          <p>Black on off-white, huge outlined wordmark, lots of air. The product and the name do all the work.</p>
+          <div class="sw"><span style="background:#fafafa"></span><span style="background:#0a0a0a"></span><span style="background:#767676"></span></div>
+          <dl><dt>Type</dt><dd>Inter Tight 900</dd><dt>Feel</dt><dd>Minimal, premium, calm</dd><dt>Best if</dt><dd>You have strong product photos</dd></dl>
+          <span class="open">Open direction A →</span>
+        </div>
+      </a>
+      <a class="dir" href="b-stamp.html">
+        <div class="prev b"><b>Disapproved</b></div>
+        <div class="body">
+          <h3>B · Stamp <small>concept-led</small></h3>
+          <p>Takes the name literally: a rejected form, a red stamp that slams in, a "file" and an "appeal" signup. Rawest and most memorable.</p>
+          <div class="sw"><span style="background:#efece4"></span><span style="background:#151515"></span><span style="background:#d6261c"></span></div>
+          <dl><dt>Type</dt><dd>Archivo Black + JetBrains Mono</dd><dt>Feel</dt><dd>Raw, witty, brutalist</dd><dt>Best if</dt><dd>The story is the product</dd></dl>
+          <span class="open">Open direction B →</span>
+        </div>
+      </a>
+      <a class="dir" href="c-dark.html">
+        <div class="prev c"><b>Dis<i>approved</i></b></div>
+        <div class="body">
+          <span class="tagfit" style="background:#e5e5e5;color:#111">Closest to revved.pl</span>
+          <h3>C · Dark <small>drop-driven shop</small></h3>
+          <p>Dark streetwear store: scrolling promo bar, condensed display type, countdown, categories, quick-add products, trust band.</p>
+          <div class="sw"><span style="background:#0b0b0c"></span><span style="background:#f2f2f0"></span><span style="background:#ff2d2d"></span></div>
+          <dl><dt>Type</dt><dd>Anton + Manrope</dd><dt>Feel</dt><dd>Loud, fast, car-culture</dd><dt>Best if</dt><dd>You sell drops and want urgency</dd></dl>
+          <span class="open">Open direction C →</span>
+        </div>
+      </a>
+    </div>
+
+    <h2>How we get there</h2>
+    <div class="steps">
+      <div class="step"><h4>Pick &amp; refine</h4><ul><li>Go with D (or mix in A–C)</li><li>Lock logo, colors and fonts</li><li>Write final copy and product names</li></ul></div>
+      <div class="step"><h4>Content</h4><ul><li>Full-res originals of the feed photos</li><li>Real MX52 spec &amp; mod list</li><li>Sticker/tee designs for Drop 01</li></ul></div>
+      <div class="step"><h4>Build</h4><ul><li>Launch now as a build site (static, free hosting)</li><li>Add Shopify for merch when Drop 01 is ready</li><li>Parts later, same shop</li></ul></div>
+      <div class="step"><h4>Launch</h4><ul><li>Connect disapproved.site domain</li><li>Email list for drop alerts</li><li>Link in IG bio, then Drop 01</li></ul></div>
+    </div>
+
+    <h2>What each page includes</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Section</th><th>Purpose</th><th>D · Garage</th><th>A · Mono</th><th>B · Stamp</th><th>C · Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Announcement bar</td><td>Shipping / drop news</td><td>Build status ticker</td><td>Static</td><td>Red, "denied" joke</td><td>Scrolling ticker</td></tr>
+          <tr><td>Hero</td><td>Brand in 3 seconds</td><td>Logo + photo collage</td><td>Giant wordmark</td><td>Stamp slams in</td><td>Headline + countdown</td></tr>
+          <tr><td>Products</td><td>Sell</td><td>Stickers → clothing → parts</td><td>3 large cards</td><td>4-up bordered grid</td><td>Categories + quick-add</td></tr>
+          <tr><td>Story</td><td>Why the name</td><td>MX52 build log + cortisol meter</td><td>One-line manifesto</td><td>"The file"</td><td>Trust band</td></tr>
+          <tr><td>Email</td><td>Own the audience</td><td>Drop alerts</td><td>Early access</td><td>"File an appeal"</td><td>24h early access</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>Photos in D are cropped from the Instagram grid; swap in full-res originals. Grey boxes in A–C are placeholders. The email forms are demos and don't send anything yet.</footer>
+  </main>
+  <script src="../base.js"></script>
+</body>
+</html>

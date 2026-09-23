@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DISAPPROVED — Dark</title>
+  <meta name="description" content="Disapproved. Built for the ones who never got the green light." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../base.css" />
+  <style>
+    :root { --bg: #0b0b0c; --panel: #151517; --fg: #f2f2f0; --mute: #8d8d92; --line: #26262a; --acc: #ff2d2d; }
+    body { background: var(--bg); color: var(--fg); font-family: "Manrope", system-ui, sans-serif; }
+    .display { font-family: "Anton", Impact, sans-serif; text-transform: uppercase; letter-spacing: .005em; font-weight: 400; }
+
+    .bar { overflow: hidden; background: var(--acc); color: #0b0b0c; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; padding: 8px 0; white-space: nowrap; }
+    .bar div { display: inline-block; animation: scroll 26s linear infinite; }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+
+    header { position: sticky; top: 0; z-index: 10; background: rgba(11,11,12,.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .logo { font-size: 26px; }
+    .logo i { font-style: normal; color: var(--acc); }
+    nav ul { display: flex; gap: 28px; list-style: none; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    nav ul a { color: var(--mute); transition: color .2s; }
+    nav ul a:hover { color: var(--fg); }
+    .icons { display: flex; gap: 18px; font-size: 13px; font-weight: 700; text-transform: uppercase; }
+    .icons b { background: var(--acc); color: #000; border-radius: 999px; padding: 1px 7px; margin-left: 4px; }
+
+    .hero { position: relative; min-height: min(88vh, 820px); display: flex; align-items: flex-end; overflow: hidden; border-bottom: 1px solid var(--line); }
+    .hero::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(60% 50% at 70% 35%, rgba(255,45,45,.28), transparent 70%),
+        linear-gradient(180deg, transparent 40%, var(--bg)),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 80px);
+    }
+    .hero .ghost { position: absolute; top: 8%; left: 50%; transform: translateX(-50%); font-size: clamp(120px, 30vw, 440px); line-height: .8; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.08); white-space: nowrap; pointer-events: none; }
+    .hero-inner { position: relative; padding: 0 0 clamp(40px, 7vw, 80px); }
+    .chip { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--line); background: var(--panel); padding: 8px 12px; border-radius: 999px; }
+    .chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 0 4px rgba(255,45,45,.2); animation: pulse 1.6s infinite; }
+    @keyframes pulse { 50% { box-shadow: 0 0 0 8px rgba(255,45,45,0); } }
+    .hero h1 { font-size: clamp(64px, 13vw, 200px); line-height: .86; margin: 20px 0 24px; }
+    .hero h1 span { color: var(--acc); }
+    .hero-row { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
+    .hero-row p { max-width: 40ch; color: #c4c4c4; font-size: 17px; }
+
+    .timer { display: flex; gap: 10px; }
+    .timer div { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; min-width: 72px; text-align: center; }
+    .timer strong { display: block; font-family: "Anton"; font-size: 32px; line-height: 1; font-weight: 400; }
+    .timer small { font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: .1em; }
+
+    .btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: .06em; padding: 17px 28px; border-radius: 8px; background: var(--acc); color: #0b0b0c; transition: transform .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); background: #ff4b4b; }
+    .btn-ghost { background: transparent; color: var(--fg); border: 1px solid #3a3a3f; }
+    .btn-ghost:hover { background: var(--panel); }
+
+    section { padding: clamp(64px, 9vw, 112px) 0; }
+    .head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+    h2 { font-size: clamp(40px, 6vw, 80px); line-height: .9; }
+    .link { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid var(--acc); padding-bottom: 3px; }
+
+    .cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .cat { position: relative; aspect-ratio: 3/4; border-radius: 14px; overflow: hidden; background: linear-gradient(160deg, #1d1d20, #0f0f11); border: 1px solid var(--line); display: flex; align-items: flex-end; padding: 18px; transition: border-color .3s; }
+    .cat::after { content: attr(data-n); position: absolute; top: 14px; right: 18px; font-family: "Anton"; font-size: 72px; color: rgba(255,255,255,.05); }
+    .cat:hover { border-color: var(--acc); }
+    .cat h3 { font-family: "Anton"; font-weight: 400; font-size: 30px; text-transform: uppercase; }
+    .cat p { color: var(--mute); font-size: 13px; }
+
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 12px; }
+    .prod .ph { position: relative; aspect-ratio: 4/5; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); display: grid; place-items: center; font-family: "Anton"; font-size: 44px; color: #2a2a2e; overflow: hidden; }
+    .prod .ph .add { position: absolute; left: 10px; right: 10px; bottom: 10px; font-family: "Manrope"; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; background: var(--fg); color: var(--bg); text-align: center; padding: 11px; border-radius: 8px; transform: translateY(140%); transition: transform .3s; }
+    .prod:hover .ph .add, .prod:focus-visible .ph .add { transform: none; }
+    .prod .badge { position: absolute; top: 10px; left: 10px; font-family: "Manrope"; font-size: 11px; font-weight: 800; text-transform: uppercase; background: var(--acc); color: #000; padding: 4px 8px; border-radius: 6px; }
+    .prod h4 { margin-top: 12px; font-size: 14px; font-weight: 700; }
+    .prod .price { color: var(--mute); font-size: 14px; }
+    .prod .price s { margin-left: 6px; opacity: .6; }
+
+    .band { border-block: 1px solid var(--line); background: var(--panel); }
+    .band .wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .band div div { padding: 28px 24px; border-right: 1px solid var(--line); }
+    .band div div:last-child { border-right: 0; }
+    .band strong { display: block; font-family: "Anton"; font-weight: 400; font-size: 26px; text-transform: uppercase; }
+    .band span { color: var(--mute); font-size: 14px; }
+
+    .join { text-align: center; position: relative; overflow: hidden; }
+    .join h2 { font-size: clamp(48px, 9vw, 130px); }
+    .join h2 span { color: var(--acc); }
+    .join p { color: var(--mute); margin-top: 12px; }
+    form { display: flex; gap: 8px; max-width: 480px; margin: 32px auto 0; }
+    input { flex: 1; min-width: 0; padding: 16px 18px; border-radius: 8px; border: 1px solid #333338; background: var(--panel); }
+    input:focus { outline: 2px solid var(--acc); outline-offset: 1px; }
+    [data-msg] { margin-top: 14px; min-height: 1.5em; color: var(--mute); font-size: 14px; }
+
+    footer { border-top: 1px solid var(--line); padding: 48px 0 88px; color: var(--mute); font-size: 14px; }
+    footer .wrap { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 24px; }
+    footer h5 { color: var(--fg); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px; }
+    footer li { list-style: none; margin-bottom: 6px; }
+    footer a:hover { color: var(--fg); }
+
+    @media (max-width: 900px) {
+      nav ul { display: none; }
+      .cats, .grid { grid-template-columns: 1fr 1fr; }
+      .band .wrap { grid-template-columns: 1fr; }
+      .band div div { border-right: 0; border-bottom: 1px solid var(--line); }
+      footer .wrap { grid-template-columns: 1fr 1fr; }
+      form { flex-direction: column; }
+      .prod .ph .add { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar" aria-label="Free worldwide shipping over €100. Drop 01 live now.">
+    <div aria-hidden="true">Free worldwide shipping over €100 &nbsp;✕&nbsp; Drop 01 live now &nbsp;✕&nbsp; No restocks &nbsp;✕&nbsp; Free worldwide shipping over €100 &nbsp;✕&nbsp; Drop 01 live now &nbsp;✕&nbsp; No restocks &nbsp;✕&nbsp;</div>
+  </div>
+  <header>
+    <nav class="wrap">
+      <a href="#" class="logo display">Dis<i>approved</i></a>
+      <ul>
+        <li><a href="#shop">New in</a></li>
+        <li><a href="#cats">Apparel</a></li>
+        <li><a href="#cats">Accessories</a></li>
+        <li><a href="#cats">Stickers</a></li>
+      </ul>
+      <div class="icons"><a href="#">Search</a><a href="#">Cart<b>0</b></a></div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="ghost display" aria-hidden="true">No.</div>
+      <div class="hero-inner wrap">
+        <span class="chip">Drop 01 · live now</span>
+        <h1 class="display reveal">Never got<br />the <span>green light.</span></h1>
+        <div class="hero-row">
+          <p class="reveal">Apparel, accessories and stickers for the ones who build it anyway. Limited runs, worldwide shipping, zero restocks.</p>
+          <div class="reveal" style="display:flex;flex-direction:column;gap:14px">
+            <div class="timer" id="timer" aria-label="Time left in the drop">
+              <div><strong data-t="d">00</strong><small>Days</small></div>
+              <div><strong data-t="h">00</strong><small>Hrs</small></div>
+              <div><strong data-t="m">00</strong><small>Min</small></div>
+              <div><strong data-t="s">00</strong><small>Sec</small></div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <a href="#shop" class="btn">Shop drop →</a>
+              <a href="#cats" class="btn btn-ghost">Browse all</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="cats" class="wrap">
+      <div class="head"><h2 class="display reveal">Shop by<br />category</h2><a href="#" class="link">View all</a></div>
+      <div class="cats">
+        <a href="#" class="cat reveal" data-n="01"><div><h3>Tees</h3><p>Heavyweight 260gsm</p></div></a>
+        <a href="#" class="cat reveal" data-n="02"><div><h3>Hoodies</h3><p>Boxy fit</p></div></a>
+        <a href="#" class="cat reveal" data-n="03"><div><h3>Accessories</h3><p>Caps, keychains</p></div></a>
+        <a href="#" class="cat reveal" data-n="04"><div><h3>Stickers</h3><p>Die-cut, vinyl</p></div></a>
+      </div>
+    </section>
+
+    <section id="shop" class="wrap" style="padding-top:0">
+      <div class="head"><h2 class="display reveal">New in</h2><a href="#" class="link">Shop all</a></div>
+      <div class="grid">
+        <a href="#" class="prod reveal"><div class="ph"><span class="badge">New</span>01<span class="add">Quick add</span></div><h4>Red Light Tee</h4><p class="price">€48</p></a>
+        <a href="#" class="prod reveal"><div class="ph"><span class="badge">Low stock</span>02<span class="add">Quick add</span></div><h4>Denied Hoodie</h4><p class="price">€110</p></a>
+        <a href="#" class="prod reveal"><div class="ph">03<span class="add">Quick add</span></div><h4>No. Cap</h4><p class="price">€34<s>€40</s></p></a>
+        <a href="#" class="prod reveal"><div class="ph">04<span class="add">Quick add</span></div><h4>Sticker Pack Vol.1</h4><p class="price">€9</p></a>
+      </div>
+    </section>
+
+    <div class="band">
+      <div class="wrap">
+        <div><strong>Worldwide</strong><span>Tracked shipping, 3–7 days in EU</span></div>
+        <div><strong>Limited</strong><span>Every drop is one run only</span></div>
+        <div><strong>30-day returns</strong><span>No questions, no approvals</span></div>
+      </div>
+    </div>
+
+    <section class="join wrap">
+      <h2 class="display reveal">Get it <span>first.</span></h2>
+      <p class="reveal">Drops sell out. The list gets 24h early access.</p>
+      <form data-signup="You're on the list. Drop 02 lands in your inbox first." class="reveal">
+        <label for="email-c" class="sr-only">Email</label>
+        <input id="email-c" type="email" required placeholder="Email address" />
+        <button class="btn" type="submit">Join</button>
+      </form>
+      <p data-msg aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div><a href="#" class="logo display" style="color:var(--fg)">Dis<i style="font-style:normal;color:var(--acc)">approved</i></a><p style="margin-top:10px;max-width:30ch">Made without permission. © 2026 disapproved.site</p></div>
+      <div><h5>Shop</h5><ul><li><a href="#">New in</a></li><li><a href="#">Apparel</a></li><li><a href="#">Stickers</a></li></ul></div>
+      <div><h5>Help</h5><ul><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div><h5>Follow</h5><ul><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li></ul></div>
+    </div>
+  </footer>
+
+  <a class="back" href="index.html">← All directions</a>
+  <script src="../base.js"></script>
+  <script>
+    // Demo countdown: drop closes 5 days after first visit.
+    (() => {
+      const end = Date.now() + 5 * 864e5 - 1;
+      const el = (k) => document.querySelector(`[data-t="${k}"]`);
+      const pad = (n) => String(n).padStart(2, '0');
+      const tick = () => {
+        let t = Math.max(0, end - Date.now()) / 1000;
+        el('d').textContent = pad(Math.floor(t / 86400)); t %= 86400;
+        el('h').textContent = pad(Math.floor(t / 3600)); t %= 3600;
+        el('m').textContent = pad(Math.floor(t / 60));
+        el('s').textContent = pad(Math.floor(t % 60));
+      };
+      tick(); setInterval(tick, 1000);
+    })();
+  </script>
+</body>
+</html>

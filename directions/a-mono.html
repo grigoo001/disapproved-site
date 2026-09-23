@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DISAPPROVED — Mono</title>
+  <meta name="description" content="Disapproved. Made without permission." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../base.css" />
+  <style>
+    :root { --bg: #fafafa; --fg: #0a0a0a; --mute: #767676; --line: #e4e4e4; }
+    body { background: var(--bg); color: var(--fg); font-family: "Inter Tight", system-ui, sans-serif; }
+
+    .bar { background: var(--fg); color: var(--bg); text-align: center; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 9px 16px; }
+    header { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { font-weight: 900; letter-spacing: -.03em; font-size: 18px; }
+    .logo s { text-decoration-thickness: 2px; }
+    nav ul { display: flex; gap: 28px; list-style: none; font-size: 14px; color: var(--mute); }
+    nav ul a:hover { color: var(--fg); }
+    .pill { font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; background: var(--fg); color: var(--bg); }
+
+    .hero { padding: clamp(56px, 12vw, 140px) 0 48px; }
+    .hero .kicker { font-size: 13px; color: var(--mute); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(56px, 15vw, 220px); line-height: .82; font-weight: 900; letter-spacing: -.065em; }
+    .hero h1 span { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--fg); }
+    .hero-foot { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--fg); }
+    .hero-foot p { max-width: 420px; font-size: 18px; color: #333; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; padding: 16px 26px; border-radius: 999px; background: var(--fg); color: var(--bg); transition: transform .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--fg); border: 1px solid var(--fg); }
+
+    .marquee { overflow: hidden; border-block: 1px solid var(--line); padding: 18px 0; white-space: nowrap; }
+    .marquee div { display: inline-block; animation: scroll 30s linear infinite; font-size: 14px; letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+
+    section { padding: clamp(64px, 10vw, 120px) 0; }
+    .label { font-size: 13px; color: var(--mute); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; }
+    h2 { font-size: clamp(32px, 5vw, 56px); line-height: 1; letter-spacing: -.04em; font-weight: 800; max-width: 14ch; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+    .card .ph { aspect-ratio: 4/5; background: #ececec; border-radius: 4px; display: grid; place-items: center; color: #bdbdbd; font-weight: 900; font-size: 40px; letter-spacing: -.05em; transition: background .3s; }
+    .card:hover .ph { background: #e2e2e2; }
+    .card .meta { display: flex; justify-content: space-between; margin-top: 12px; font-size: 14px; }
+    .card .meta span:last-child { color: var(--mute); }
+
+    .manifesto { background: var(--fg); color: var(--bg); }
+    .manifesto .label { color: #8a8a8a; }
+    .manifesto p.big { font-size: clamp(28px, 4.4vw, 60px); line-height: 1.05; letter-spacing: -.035em; font-weight: 500; max-width: 22ch; }
+    .manifesto p.big em { font-style: normal; color: #6b6b6b; }
+
+    .join { text-align: center; }
+    .join h2 { margin-inline: auto; }
+    form { display: flex; gap: 8px; max-width: 460px; margin: 32px auto 0; }
+    input { flex: 1; min-width: 0; padding: 16px 20px; border-radius: 999px; border: 1px solid var(--line); background: #fff; }
+    input:focus { outline: 2px solid var(--fg); outline-offset: 2px; }
+    [data-msg] { margin-top: 14px; font-size: 14px; color: var(--mute); min-height: 1.5em; }
+
+    footer { border-top: 1px solid var(--line); padding: 28px 0 80px; font-size: 13px; color: var(--mute); }
+    footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+    @media (max-width: 760px) {
+      nav ul { display: none; }
+      .hero-foot { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .grid .card:last-child { display: none; }
+      form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">Free shipping over €100 · Worldwide · Drop 01 is live</div>
+  <header>
+    <nav class="wrap">
+      <a href="#" class="logo">DIS<s>APPROVED</s></a>
+      <ul>
+        <li><a href="#drop">Shop</a></li>
+        <li><a href="#drop">Drop 01</a></li>
+        <li><a href="#manifesto">Manifesto</a></li>
+        <li><a href="#join">List</a></li>
+      </ul>
+      <a href="#" class="pill">Cart (0)</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero wrap">
+      <p class="kicker reveal">Drop 01 — Autumn 2026</p>
+      <h1 class="reveal">DIS<span>APPROVED</span></h1>
+      <div class="hero-foot reveal">
+        <p>Made without permission. A small-batch label for people who stopped waiting for a yes.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="#drop" class="btn">Shop the drop →</a>
+          <a href="#manifesto" class="btn btn-ghost">Read why</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div>Not for everyone &nbsp;·&nbsp; Limited run &nbsp;·&nbsp; No restocks &nbsp;·&nbsp; Made without permission &nbsp;·&nbsp; Not for everyone &nbsp;·&nbsp; Limited run &nbsp;·&nbsp; No restocks &nbsp;·&nbsp; Made without permission &nbsp;·&nbsp;</div>
+    </div>
+
+    <section id="drop" class="wrap">
+      <p class="label reveal">Drop 01</p>
+      <h2 class="reveal">Three pieces. No second run.</h2>
+      <div class="grid">
+        <a href="#" class="card reveal"><div class="ph">01</div><div class="meta"><span>Heavy Tee — Black</span><span>€48</span></div></a>
+        <a href="#" class="card reveal"><div class="ph">02</div><div class="meta"><span>Hoodie — Bone</span><span>€110</span></div></a>
+        <a href="#" class="card reveal"><div class="ph">03</div><div class="meta"><span>Cap — Washed</span><span>€38</span></div></a>
+      </div>
+    </section>
+
+    <section id="manifesto" class="manifesto">
+      <div class="wrap">
+        <p class="label reveal">Manifesto</p>
+        <p class="big reveal">Every good idea was <em>disapproved</em> once. We just kept making it anyway.</p>
+      </div>
+    </section>
+
+    <section id="join" class="join wrap">
+      <p class="label reveal">The list</p>
+      <h2 class="reveal">Early access. No spam.</h2>
+      <form data-signup="You're in. Watch your inbox." class="reveal">
+        <label for="email-a" class="sr-only">Email</label>
+        <input id="email-a" type="email" required placeholder="you@email.com" />
+        <button class="btn" type="submit">Join</button>
+      </form>
+      <p data-msg aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap"><span>© 2026 disapproved.site</span><span>Instagram · TikTok · Contact</span></div>
+  </footer>
+
+  <a class="back" href="index.html">← All directions</a>
+  <script src="../base.js"></script>
+</body>
+</html>
