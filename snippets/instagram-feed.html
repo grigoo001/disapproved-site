@@ -1,0 +1,62 @@
+<!-- disapproved.site — Instagram feed section (self-contained, paste anywhere) -->
+<section class="dsf" aria-labelledby="dsf-title">
+  <div class="dsf-head">
+    <h2 id="dsf-title">From the feed</h2>
+    <a class="dsf-btn" href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener">See all on Instagram <span aria-hidden="true">↗</span></a>
+  </div>
+  <ul class="dsf-grid">
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/containers.jpg" width="238" height="288" alt="The MX-5 by shipping containers" loading="lazy" decoding="async" /><span class="dsf-cap">Day one</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/fuel.jpg" width="238" height="288" alt="The MX-5 at a petrol station" loading="lazy" decoding="async" /><span class="dsf-cap">Fuel stop</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/lift.jpg" width="238" height="288" alt="The MX-5 on a lift with a cortisol gauge sticker" loading="lazy" decoding="async" /><span class="dsf-cap" lang="hu">„Mi zörög?”</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/fapad.jpg" width="238" height="288" alt="The MX-5 in the workshop" loading="lazy" decoding="async" /><span class="dsf-cap" lang="hu">„Szép kis fapad 1.6”</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/snow.jpg" width="238" height="288" alt="The MX-5 in the snow with underglow" loading="lazy" decoding="async" /><span class="dsf-cap">Snow glow</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/neon.jpg" width="238" height="288" alt="A car under coloured neon lights" loading="lazy" decoding="async" /><span class="dsf-cap">Neon nights</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/field.jpg" width="238" height="288" alt="The MX-5 on gravel, bonnet open" loading="lazy" decoding="async" /><span class="dsf-cap">Off the tarmac</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/drive.jpg" width="238" height="288" alt="A row of cars parked under trees" loading="lazy" decoding="async" /><span class="dsf-cap">Drive</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/alps.jpg" width="238" height="288" alt="Mountain view over a lakeside town" loading="lazy" decoding="async" /><span class="dsf-cap">Road trip views</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/front.jpg" width="238" height="288" alt="Front end of the MX-5" loading="lazy" decoding="async" /><span class="dsf-cap">That face</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/taillights.jpg" width="238" height="288" alt="The MX-5's taillights at night" loading="lazy" decoding="async" /><span class="dsf-cap">Night shift</span></a></li>
+    <li><a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/grigoo001/disapproved-site/main/img/bodywork.jpg" width="238" height="288" alt="The MX-5 in the body shop" loading="lazy" decoding="async" /><span class="dsf-cap">Maaan, fck body work</span></a></li>
+  </ul>
+</section>
+
+<style>
+  .dsf {
+    --dsf-bg: #0c0c0c; --dsf-panel: #151515; --dsf-fg: #f4f4f2; --dsf-line: #3a3a3a;
+    --dsf-ease: cubic-bezier(.16, 1, .3, 1);
+    background: var(--dsf-bg); color: var(--dsf-fg);
+    font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: clamp(64px, 9vw, 120px) clamp(16px, 4vw, 72px);
+  }
+  .dsf *, .dsf *::before, .dsf *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  .dsf-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+  .dsf-head h2 { font-size: clamp(48px, 7vw, 96px); line-height: .9; font-weight: 900; font-stretch: 62%; text-transform: uppercase; }
+  .dsf-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border: 1px solid var(--dsf-line); border-radius: 10px; color: var(--dsf-fg); font-weight: 700; text-decoration: none; transition: background .2s, transform .3s var(--dsf-ease); }
+  .dsf-btn:hover { background: var(--dsf-panel); transform: translateY(-2px); }
+  .dsf-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; list-style: none; border-radius: 16px; overflow: hidden; }
+  .dsf-grid a { position: relative; display: block; overflow: hidden; background: var(--dsf-panel); color: var(--dsf-fg); }
+  .dsf-grid img { display: block; width: 100%; height: auto; aspect-ratio: 238 / 288; object-fit: cover; transition: transform .6s var(--dsf-ease); }
+  .dsf-cap { position: absolute; inset: auto 0 0 0; padding: 32px 12px 12px; font-size: 14px; font-weight: 600; line-height: 1.3; background: linear-gradient(transparent, rgba(0,0,0,.88)); opacity: 0; translate: 0 8px; transition: opacity .3s, translate .3s var(--dsf-ease); }
+  .dsf-grid a:hover img { transform: scale(1.05); }
+  .dsf-grid a:hover .dsf-cap, .dsf-grid a:focus-visible .dsf-cap { opacity: 1; translate: 0 0; }
+  .dsf a:focus-visible { outline: 2px solid var(--dsf-fg); outline-offset: 3px; }
+  .dsf-grid a:focus-visible { outline-offset: -3px; }
+
+  @media (min-width: 1800px) { .dsf-grid { grid-template-columns: repeat(12, 1fr); } }
+  @media (max-width: 960px) { .dsf-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* Photos ease in as they scroll into view (Chrome/Edge/Safari 26+; others just show them) */
+  @supports (animation-timeline: view()) {
+    .dsf-grid li { animation: dsf-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+    .dsf-grid li:nth-child(6n+2) { animation-range: entry 5% entry 80%; }
+    .dsf-grid li:nth-child(6n+3) { animation-range: entry 10% entry 90%; }
+    .dsf-grid li:nth-child(6n+4) { animation-range: entry 15% entry 95%; }
+    .dsf-grid li:nth-child(6n+5) { animation-range: entry 20% entry 100%; }
+    .dsf-grid li:nth-child(6n+6) { animation-range: entry 25% cover 30%; }
+    @keyframes dsf-rise { from { opacity: 0; translate: 0 48px; } to { opacity: 1; translate: 0 0; } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dsf-grid img, .dsf-cap, .dsf-btn { transition: none; }
+    .dsf-grid li { animation: none !important; }
+  }
+</style>
