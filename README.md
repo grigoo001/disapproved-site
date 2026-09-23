@@ -7,17 +7,24 @@ Instagram: [@disapproved.site](https://www.instagram.com/disapproved.site/)
 ## Structure
 
 ```
-index.html          Main landing page (direction D · Garage)
-base.css / base.js  Shared reset, scroll reveal, signup form stub
-img/                Photos (currently cropped from the Instagram grid — replace with full-res originals)
-directions/         Design exploration: overview + directions A (Mono), B (Stamp), C (Dark)
+index.html          The site
+base.css / base.js  Shared reset, email signup handling, reveal helper
+fonts/              Self-hosted Archivo (trimmed variable font)
+logo.svg            Logo lockup as outlines; favicon.svg is the compact "dis" mark
+img/                Photos and brand assets (see CLAUDE.md, "Assets still to add")
+directions/         Early design explorations A–D
+.claude/            Design skills (impeccable + taste-skill pack)
 ```
+
+See `CLAUDE.md` for brand rules and how to turn on email signups.
 
 Plain static HTML/CSS/JS — no build step. Open `index.html` in a browser, or run:
 
 ```sh
 python3 -m http.server 8000
 ```
+
+Opening the file directly works too, but the self-hosted font only loads over http.
 
 ## Hosting (GitHub Pages)
 
@@ -30,6 +37,7 @@ To use the real domain, add a `CNAME` file containing `disapproved.site` and poi
 
 - [ ] Replace `img/` with full-resolution photos
 - [ ] Fill in the real MX52 spec and mod list (`index.html`, `#build`)
-- [ ] Connect the email form to a real list (e.g. Shopify Email, Klaviyo, Mailchimp)
+- [ ] Upload `img/poster.jpg`, `img/badge.png`, `img/tribal.png`
+- [ ] Connect the email form: set `data-endpoint` (e.g. Formspree, Buttondown)
 - [ ] Connect `disapproved.site` domain
 - [ ] Add Shopify when Drop 01 (stickers) is ready
