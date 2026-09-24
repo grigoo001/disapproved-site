@@ -25,6 +25,8 @@ Preview locally with `python3 -m http.server` (the font doesn't load over `file:
   Red (`--high`) only means "stress / happening now". Green and amber only live in the cortisol gauge.
 - **Type:** Archivo only. Condensed 900 uppercase (`.cond`) for section headings; normal width for everything else.
 - **Voice:** short, dry, self-aware garage humour. Hungarian captions stay in Hungarian with an English gloss and `lang="hu"`.
+- **Motion:** runs for everyone, even with the OS "reduce motion" setting on (owner's decision). Don't add
+  `prefers-reduced-motion` switches that disable it. The status ticker has a pause/play button instead.
 - **Honesty:** no invented specs, numbers, reviews or shipping promises. If a fact isn't known, leave it out.
   The signup never claims success unless a real endpoint accepted the email.
 

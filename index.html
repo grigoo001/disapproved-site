@@ -42,7 +42,13 @@
     /* Status ticker: one line of real facts, drifting right forever. Pauses on hover. */
     .status { border-bottom: 1px solid var(--line); font-size: 14px; color: var(--mute); overflow: hidden; white-space: nowrap; }
     .status .track { display: flex; width: max-content; animation: drift 75s linear infinite; }
-    .status:hover .track { animation-play-state: paused; }
+    .status:hover .track, .status.paused .track { animation-play-state: paused; }
+    .status { position: relative; }
+    .ticker-toggle { position: absolute; right: 0; top: 0; bottom: 0; display: grid; place-items: center; width: 56px; padding-left: 16px; border: 0; cursor: pointer; color: var(--mute); background: linear-gradient(90deg, transparent, var(--bg) 40%); }
+    .ticker-toggle:hover { color: var(--fg); }
+    .ticker-toggle svg { width: 14px; height: 14px; }
+    .ticker-toggle .i-play, .status.paused .ticker-toggle .i-pause { display: none; }
+    .status.paused .ticker-toggle .i-play { display: block; }
     .status ul { display: flex; list-style: none; flex: none; }
     .status li { display: flex; align-items: center; gap: 10px; min-height: 40px; padding-inline: 20px; }
     .status li::after { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--line-2); margin-left: 30px; }
@@ -238,11 +244,6 @@
       .entry h3 { font-size: 19px; }
       .signup .btn { width: 100%; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      .shot { animation: none; }
-      .needle, .feed img, .feed .cap, .btn { transition: none; }
-      .feed .skel { animation: none; }
-    }
 
     /* --- Motion ---------------------------------------------------------
        Focal moment: the lockup assembles on load ("dis" drops in, the three
@@ -274,16 +275,8 @@
       @keyframes slide-in { from { opacity: 0; translate: -6vw 0; } to { opacity: 1; translate: 0 0; } }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .status .track { animation: none; transform: none; }
-      .lp-dis, .lp-a1, .lp-a2, .lp-a3, .hero .copy, .sticker { animation: fade .4s ease both; }
-      .lp-a1, .lp-a2, .lp-a3 { clip-path: none; }
-      @keyframes fade { from { opacity: 0; } }
-      @supports (animation-timeline: view()) {
-        .rise, .head h2.rise { animation-name: fade-only; }
-        @keyframes fade-only { from { opacity: 0; } to { opacity: 1; } }
-      }
-    }
+    /* Motion is intentionally the same for everyone, including when the OS "reduce motion" setting is on
+       (owner's choice). The ticker has a pause button so the moving text can always be stopped. */
   </style>
 </head>
 <body>
@@ -333,6 +326,10 @@
         <li><span>New posts on Instagram <b>@disapproved.site</b></span></li>
       </ul>
     </div>
+    <button class="ticker-toggle" type="button" aria-pressed="false" aria-label="Pause the moving status bar">
+      <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3v12H4zM9 2h3v12H9z" fill="currentColor" /></svg>
+      <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" fill="currentColor" /></svg>
+    </button>
   </div>
 
   <header>
@@ -514,6 +511,17 @@
   <script src="base.js"></script>
   <script src="feed.js" defer></script>
   <script>
+    // Status ticker pause/play.
+    (() => {
+      const bar = document.querySelector('.status');
+      const btn = bar && bar.querySelector('.ticker-toggle');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        const paused = bar.classList.toggle('paused');
+        btn.setAttribute('aria-pressed', String(paused));
+        btn.setAttribute('aria-label', paused ? 'Play the moving status bar' : 'Pause the moving status bar');
+      });
+    })();
     // Cortisol gauge: each trigger sets --level (0..1), which rotates the needle.
     (() => {
       const gauge = document.getElementById('gauge');
@@ -528,7 +536,7 @@
       };
       btns.forEach((b) => b.addEventListener('click', () => set(b)));
       // When the meter first scrolls into view, sweep the needle up from "low".
-      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if ('IntersectionObserver' in window) {
         const target = gauge.style.getPropertyValue('--level') || getComputedStyle(gauge).getPropertyValue('--level');
         gauge.style.setProperty('--level', '0.02');
         const io = new IntersectionObserver(([e]) => {

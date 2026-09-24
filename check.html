@@ -38,7 +38,7 @@
         const td = tr.insertCell(); td.textContent = value; td.className = cls;
       };
       const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      row('Reduce motion (system setting)', reduce ? 'ON — site animations are switched off' : 'off', reduce ? 'warn' : 'ok');
+      row('Reduce motion (system setting)', reduce ? 'ON (site animates anyway)' : 'off', 'ok');
       row('Scroll animations supported', CSS.supports('animation-timeline: view()') ? 'yes' : 'no (sections just appear)', CSS.supports('animation-timeline: view()') ? 'ok' : 'warn');
       for (const f of ['index.html', 'base.css', 'base.js', 'feed.js', 'fonts/archivo-latin.woff2', 'logo.svg']) {
         try {
