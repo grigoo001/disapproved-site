@@ -1,3 +1,12 @@
+# HTML, CSS and JS are small: always revalidate so a new deploy shows immediately.
+/
+  Cache-Control: no-cache
+/*.html
+  Cache-Control: no-cache
+/*.css
+  Cache-Control: no-cache
+/*.js
+  Cache-Control: no-cache
 /fonts/*
   Cache-Control: public, max-age=2592000
 /img/*

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Site check · disapproved.site</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; padding: 32px 16px; background: #0c0c0c; color: #f4f4f2; font: 16px/1.5 system-ui, sans-serif; }
+    main { max-width: 640px; margin: 0 auto; }
+    h1 { font-size: 28px; margin: 0 0 8px; }
+    p { color: #8e8e8e; margin: 0 0 24px; }
+    table { width: 100%; border-collapse: collapse; }
+    td { padding: 12px 8px; border-bottom: 1px solid #262626; vertical-align: top; }
+    td:last-child { text-align: right; font-weight: 600; }
+    .ok { color: #3fbf5f; } .bad { color: #ff7a66; } .warn { color: #f2b02e; }
+    .demo { height: 8px; border-radius: 4px; background: #262626; overflow: hidden; margin: 8px 0 0; }
+    .demo i { display: block; width: 30%; height: 100%; background: #f4f4f2; animation: slide 1.2s ease-in-out infinite alternate; }
+    @keyframes slide { to { transform: translateX(233%); } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Site check</h1>
+    <p>Screenshot this page and send it over. It shows why motion might be missing on this device.</p>
+    <table id="t"><tr><td>JavaScript</td><td class="bad" id="js">not running</td></tr></table>
+    <p style="margin-top:24px">Test bar (should slide back and forth):</p>
+    <div class="demo"><i></i></div>
+  </main>
+  <script>
+    (async () => {
+      const t = document.getElementById('t');
+      document.getElementById('js').textContent = 'running';
+      document.getElementById('js').className = 'ok';
+      const row = (label, value, cls) => {
+        const tr = t.insertRow(); tr.insertCell().textContent = label;
+        const td = tr.insertCell(); td.textContent = value; td.className = cls;
+      };
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      row('Reduce motion (system setting)', reduce ? 'ON — site animations are switched off' : 'off', reduce ? 'warn' : 'ok');
+      row('Scroll animations supported', CSS.supports('animation-timeline: view()') ? 'yes' : 'no (sections just appear)', CSS.supports('animation-timeline: view()') ? 'ok' : 'warn');
+      for (const f of ['index.html', 'base.css', 'base.js', 'feed.js', 'fonts/archivo-latin.woff2', 'logo.svg']) {
+        try {
+          const r = await fetch(f, { cache: 'no-store' });
+          row(f, r.ok ? `loaded (${r.status})` : `missing (${r.status})`, r.ok ? 'ok' : 'bad');
+        } catch { row(f, 'failed', 'bad'); }
+      }
+      try {
+        const html = await (await fetch('index.html', { cache: 'no-store' })).text();
+        const m = html.match(/id="build-stamp">([^<]+)</);
+        const current = /lp-dis/.test(html);
+        row('Deployed page version', m ? m[1] : (current ? 'recent, no stamp' : 'OLD version'), m || current ? 'ok' : 'bad');
+      } catch {}
+      try {
+        const r = await fetch('https://feeds.behold.so/6z6ih2IyPgfZUAzjR31Z');
+        const d = r.ok ? await r.json() : null;
+        row('Instagram feed (Behold)', d ? `${(d.posts || d).length} posts` : `failed (${r.status})`, d ? 'ok' : 'bad');
+      } catch { row('Instagram feed (Behold)', 'blocked or offline', 'bad'); }
+      row('Browser', navigator.userAgent.replace(/^Mozilla\/5\.0 /, ''), '');
+    })();
+  </script>
+</body>
+</html>
