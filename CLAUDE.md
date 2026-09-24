@@ -5,7 +5,9 @@ Current project: **MX52**, a silver 2nd-gen (NB) Mazda MX-5 with a 1.6. Instagra
 The brand is car-first; a shop comes later in this order: stickers → clothing → parts.
 
 ## Stack
-Static HTML/CSS/JS, no build step, hosted on GitHub Pages from `main`.
+Static HTML/CSS/JS, no build step. Hosted on Cloudflare (Workers static assets): `wrangler.jsonc` serves this folder,
+`.assetsignore` keeps docs/skills/drafts private, `_headers` sets caching, `404.html` handles unknown paths.
+Cloudflare's Git integration redeploys on every push to `main`.
 - `index.html`: the site (styles inline in `<style>`, logo as inline SVG `<symbol>`s)
 - `base.css` / `base.js`: shared reset, signup handling, reveal helper (reveal is only used in `directions/`)
 - `fonts/`: self-hosted Archivo variable (wght 400–900, wdth 62–100). `archivo-hu.woff2` only carries ŐőŰű.

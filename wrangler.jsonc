@@ -1,0 +1,13 @@
+{
+  // Cloudflare Workers static-assets deployment for disapproved.site.
+  // Cloudflare's Git integration (Workers & Pages → Create → Import a repository) runs `npx wrangler deploy`
+  // on every push to main. There is no server code: the Worker only serves the files in this folder.
+  // Files listed in .assetsignore (design skills, docs, drafts) are not published.
+  "name": "disapproved-site",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./",
+    // Unknown paths get 404.html with a 404 status instead of Cloudflare's generic error page.
+    "not_found_handling": "404-page"
+  }
+}
