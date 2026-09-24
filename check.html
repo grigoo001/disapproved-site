@@ -52,11 +52,6 @@
         const current = /lp-dis/.test(html);
         row('Deployed page version', m ? m[1] : (current ? 'recent, no stamp' : 'OLD version'), m || current ? 'ok' : 'bad');
       } catch {}
-      try {
-        const r = await fetch('https://feeds.behold.so/6z6ih2IyPgfZUAzjR31Z');
-        const d = r.ok ? await r.json() : null;
-        row('Instagram feed (Behold)', d ? `${(d.posts || d).length} posts` : `failed (${r.status})`, d ? 'ok' : 'bad');
-      } catch { row('Instagram feed (Behold)', 'blocked or offline', 'bad'); }
       row('Browser', navigator.userAgent.replace(/^Mozilla\/5\.0 /, ''), '');
     })();
   </script>
