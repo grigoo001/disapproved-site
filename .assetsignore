@@ -1,0 +1,14 @@
+# Not part of the public site
+.git
+.github
+.claude
+node_modules
+directions
+snippets
+README.md
+CLAUDE.md
+skills-lock.json
+wrangler.jsonc
+.assetsignore
+.wrangler
+.nojekyll

@@ -26,12 +26,16 @@ python3 -m http.server 8000
 
 Opening the file directly works too, but the self-hosted font only loads over http.
 
-## Hosting (GitHub Pages)
+## Hosting (Cloudflare)
 
-Settings → Pages → Source: *Deploy from a branch* → `main` / root.
-The site is then live at `https://<user>.github.io/disapproved-site/`.
+Deployed as a Cloudflare Worker that only serves static files (`wrangler.jsonc`). No build step.
 
-To use a custom domain later (e.g. `disapproved.site` once registered): add a `CNAME` file containing the domain, then point its DNS at GitHub Pages (apex `A` records 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153; `www` `CNAME` to `grigoo001.github.io`).
+1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Import a repository** → pick `grigoo001/disapproved-site`.
+2. Keep the defaults: build command empty, deploy command `npx wrangler deploy`. Save and deploy.
+3. The site goes live at `https://disapproved-site.<your-subdomain>.workers.dev`. Every push to `main` redeploys.
+
+`.assetsignore` keeps `CLAUDE.md`, `README.md`, `.claude/`, `directions/` and `snippets/` off the public site.
+A custom domain can be added later under the Worker's **Settings → Domains & Routes** once one is registered.
 
 ## To do
 
