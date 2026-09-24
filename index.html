@@ -122,9 +122,20 @@
     .entry p { color: var(--text-2); }
     .entry q { display: inline-block; margin-top: 10px; font-size: 14px; background: var(--panel-2); padding: 6px 10px; border-radius: 8px; quotes: "\201E" "\201D"; }
     .entry q span + span { color: var(--mute); }
-    .entry.now { border-color: var(--line-2); background: var(--panel-2); }
-    .entry .tag-now { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--high); margin-bottom: 4px; }
-    .entry .tag-now::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .entry.now { border-color: var(--fg); background: var(--panel); }
+    .entry .n { display: block; font-stretch: 62%; font-weight: 900; font-size: 14px; letter-spacing: .1em; color: var(--mute); margin-bottom: 4px; }
+    .entry .now-tag { color: var(--high); letter-spacing: .02em; }
+    .progress { margin-top: 20px; }
+    .progress .row { display: flex; justify-content: space-between; font-size: 14px; color: var(--mute); margin-bottom: 8px; }
+    .progress .row b { color: var(--fg); }
+    .bar { height: 8px; background: var(--panel-2); border-radius: 99px; overflow: hidden; }
+    .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--silver), var(--fg)); border-radius: 99px; }
+    .hero .copy .stats { flex-basis: 100%; }
+    .stats { display: flex; gap: 20px 40px; flex-wrap: wrap; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .stats div { display: flex; flex-direction: column-reverse; }
+    .stats dd { font-size: 40px; line-height: 1; }
+    .stats dt { font-size: 12px; color: var(--mute); text-transform: uppercase; letter-spacing: .1em; margin-top: 8px; }
+    .meter .kicker { color: var(--mute-on-light); }
 
     /* --- Cortisol meter --- */
     .meter { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 56px; align-items: center; background: var(--paper); color: var(--ink-on-light); border-radius: 28px; padding: clamp(32px, 6vw, 72px); }
@@ -196,7 +207,7 @@
     footer { border-top: 1px solid var(--line); padding: 64px 0 48px; }
     footer .wrap { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
     footer .marks { display: flex; align-items: end; gap: 24px; }
-    footer svg.logo { width: clamp(120px, 14vw, 170px); color: var(--line-2); }
+    footer svg.logo-h { display: block; width: clamp(220px, 30vw, 420px); height: auto; color: #262626; }
     footer .badge { width: clamp(120px, 14vw, 170px); aspect-ratio: 1; border-radius: 16px; object-fit: cover; }
     footer ul { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; margin-left: -12px; }
     footer ul a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: var(--text-2); border-radius: 8px; }
@@ -360,6 +371,11 @@
           <a href="#build" class="btn">Follow the build</a>
           <a href="https://www.instagram.com/disapproved.site/" class="btn btn-ghost" target="_blank" rel="noopener">Watch the reels<svg class="arrow" aria-hidden="true"><use href="#arrow" /></svg></a>
         </div>
+        <dl class="stats">
+          <div><dt>Current project</dt><dd class="cond">MX52</dd></div>
+          <div><dt>Litres, no excuses</dt><dd class="cond">1.6</dd></div>
+          <div><dt>Current stage</dt><dd class="cond">Body work</dd></div>
+        </dl>
       </div>
       <div class="collage">
         <figure class="shot s1"><img src="img/snow.jpg" width="238" height="288" alt="The silver MX-5 in the snow with purple underglow" fetchpriority="high" /></figure>
@@ -372,28 +388,35 @@
     <section id="build">
       <div class="wrap">
         <div class="head">
-          <h2 class="cond rise">Project<br />MX52</h2>
+          <div>
+            <p class="kicker rise">The build</p>
+            <h2 class="cond rise">Project<br />MX52</h2>
+          </div>
           <p class="rise">One silver NB, a tight budget and a lot of opinions. Every step goes up on the feed, including the ones that go wrong.</p>
         </div>
         <div class="build">
           <aside class="spec rise" aria-label="Car details">
             <p class="model cond">MX52</p>
-            <p class="sub">Mazda MX-5, second generation (NB)</p>
+            <p class="sub">Mazda MX-5 NB · Silver</p>
             <dl>
-              <dt>Colour</dt><dd>Silver</dd>
-              <dt>Engine</dt><dd>1.6</dd>
-              <dt>Wheels</dt><dd>Looking for 5×114.3</dd>
-              <dt>Lighting</dt><dd>Underglow</dd>
-              <dt>Stage</dt><dd class="now">Body work</dd>
+              <dt>Engine</dt><dd>1.6 NA</dd>
+              <dt>Wheels</dt><dd>Hunting 5×114.3</dd>
+              <dt>Lighting</dt><dd>Underglow, obviously</dd>
+              <dt>Body</dt><dd class="now">Work in progress</dd>
+              <dt>Approved by</dt><dd>Nobody</dd>
             </dl>
+            <div class="progress" role="img" aria-label="Build log: stage 5 of 5, in progress">
+              <div class="row"><span>Build log</span><b>Stage 5 of 5</b></div>
+              <div class="bar"><i style="width: 80%"></i></div>
+            </div>
             <p class="more">The full mod list goes up as parts go on. Updates land on <a href="https://www.instagram.com/disapproved.site/" target="_blank" rel="noopener">Instagram</a> first.</p>
           </aside>
           <ol class="log">
-            <li class="entry rise"><img src="img/containers.jpg" width="148" height="148" alt="The MX-5 parked by shipping containers, front bumper dented" loading="lazy" decoding="async" /><div><h3>Picked it up</h3><p>Dented, tired and exactly right. Day one of the project.</p></div></li>
-            <li class="entry rise"><img src="img/lift.jpg" width="148" height="148" alt="The MX-5 up on a lift" loading="lazy" decoding="async" /><div><h3>The noise hunt</h3><p>Up on the lift to find what's rattling. Cortisol climbs.</p><q><span lang="hu">Mi zörög?</span> <span>what's rattling?</span></q></div></li>
-            <li class="entry rise"><img src="img/fapad.jpg" width="148" height="148" alt="The MX-5 in the workshop" loading="lazy" decoding="async" /><div><h3>Stripped back</h3><p>Bare-bones and honest. How it should feel.</p><q><span lang="hu">Szép kis fapad 1.6</span> <span>nice little bare-bones 1.6</span></q></div></li>
-            <li class="entry rise"><img src="img/snow.jpg" width="148" height="148" alt="The MX-5 in the snow with underglow on" loading="lazy" decoding="async" /><div><h3>Winter, lit up</h3><p>Underglow on, snow everywhere, still driven.</p></div></li>
-            <li class="entry now rise" aria-current="step"><img src="img/bodywork.jpg" width="148" height="148" alt="The MX-5 in the body shop" loading="lazy" decoding="async" /><div><span class="tag-now">Happening now</span><h3>Body work</h3><p>The part nobody enjoys.</p><q>Maaan, fck body work</q></div></li>
+            <li class="entry rise"><img src="img/containers.jpg" width="148" height="148" alt="The MX-5 parked by shipping containers, front bumper dented" loading="lazy" decoding="async" /><div><span class="n">01</span><h3>Picked it up</h3><p>Dented, tired and perfect. Day one of the project.</p></div></li>
+            <li class="entry rise"><img src="img/lift.jpg" width="148" height="148" alt="The MX-5 up on a lift" loading="lazy" decoding="async" /><div><span class="n">02</span><h3>The noise hunt</h3><p>Up on the lift to find out what's rattling. Cortisol climbs.</p><q><span lang="hu">Mi zörög?</span> <span>what's rattling?</span></q></div></li>
+            <li class="entry rise"><img src="img/fapad.jpg" width="148" height="148" alt="The MX-5 in the workshop" loading="lazy" decoding="async" /><div><span class="n">03</span><h3>Stripped back</h3><p>Bare-bones and honest. Exactly how it should feel.</p><q><span lang="hu">Szép kis fapad 1.6</span> <span>nice little bare-bones 1.6</span></q></div></li>
+            <li class="entry rise"><img src="img/snow.jpg" width="148" height="148" alt="The MX-5 in the snow with underglow on" loading="lazy" decoding="async" /><div><span class="n">04</span><h3>Winter, lit up</h3><p>Underglow on, roof down (probably), snow everywhere.</p></div></li>
+            <li class="entry now rise" aria-current="step"><img src="img/bodywork.jpg" width="148" height="148" alt="The MX-5 in the body shop" loading="lazy" decoding="async" /><div><span class="n">05 <span class="now-tag">· in progress</span></span><h3>Body work</h3><p>The part nobody enjoys. Happening right now.</p><q>Maaan, fck body work</q></div></li>
           </ol>
         </div>
       </div>
@@ -403,6 +426,7 @@
       <div class="wrap">
         <div class="meter rise">
           <div>
+            <p class="kicker rise">Live-ish</p>
             <h2 class="cond rise">Cortisol<br />meter</h2>
             <p>Owning a project car, measured. Pick what just happened.</p>
             <div class="triggers" role="group" aria-label="What just happened">
@@ -432,6 +456,7 @@
       <div class="wrap">
         <div class="head">
           <div>
+            <p class="kicker rise">@disapproved.site</p>
             <h2 class="cond rise">From the feed</h2>
             <p class="feed-updated" id="feed-updated" aria-live="polite" hidden></p>
           </div>
@@ -523,7 +548,7 @@
   <footer>
     <div class="wrap">
       <div class="marks">
-        <svg class="logo" viewBox="0 0 1507 1983" aria-hidden="true"><use href="#logo" /></svg>
+        <svg class="logo-h" viewBox="0 0 2045 725" aria-hidden="true"><use href="#logo-h" /></svg>
         <img class="badge" src="img/badge.png" alt="" loading="lazy" decoding="async" onerror="this.remove()" />
       </div>
       <div>
