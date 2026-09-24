@@ -31,7 +31,7 @@ Opening the file directly works too, but the self-hosted font only loads over ht
 Settings → Pages → Source: *Deploy from a branch* → `main` / root.
 The site is then live at `https://<user>.github.io/disapproved-site/`.
 
-The `CNAME` file sets the custom domain to `disapproved.site`. DNS: apex `A` records to 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153 (optional `AAAA` 2606:50c0:8000::153 … 8003::153) and a `www` `CNAME` to `grigoo001.github.io`.
+To use a custom domain later (e.g. `disapproved.site` once registered): add a `CNAME` file containing the domain, then point its DNS at GitHub Pages (apex `A` records 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153; `www` `CNAME` to `grigoo001.github.io`).
 
 ## To do
 
@@ -39,5 +39,5 @@ The `CNAME` file sets the custom domain to `disapproved.site`. DNS: apex `A` rec
 - [ ] Fill in the real MX52 spec and mod list (`index.html`, `#build`)
 - [ ] Upload `img/poster.jpg`, `img/badge.png`, `img/tribal.png`
 - [ ] Connect the email form: set `data-endpoint` (e.g. Formspree, Buttondown)
-- [x] `CNAME` for `disapproved.site` (DNS records still to set at the registrar)
+- [ ] Register `disapproved.site`, then add a `CNAME` file and DNS records
 - [ ] Add Shopify when Drop 01 (stickers) is ready
