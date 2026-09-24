@@ -25,6 +25,9 @@ Preview locally with `python3 -m http.server` (the font doesn't load over `file:
   Red (`--high`) only means "stress / happening now". Green and amber only live in the cortisol gauge.
 - **Type:** Archivo only. Condensed 900 uppercase (`.cond`) for section headings; normal width for everything else.
 - **Voice:** short, dry, self-aware garage humour. Hungarian captions stay in Hungarian with an English gloss and `lang="hu"`.
+- **Hero collage:** three tilted photos in an overlapping cluster (snow left, garage top right, petrol station in front,
+  "dis" sticker on the right); hovering fans them out.
+- **Shop:** "Wear it. Bolt it on." with three cards (Drop 01 stickers, Drop 02 clothing, Later parts) drawn as SVG mockups.
 - **Motion:** runs for everyone, even with the OS "reduce motion" setting on (owner's decision). Don't add
   `prefers-reduced-motion` switches that disable it. The status ticker has a pause/play button instead.
 - **Honesty:** no invented specs, numbers, reviews or shipping promises. If a fact isn't known, leave it out.
@@ -37,8 +40,7 @@ Known false positives: `cramped-padding` on elements padded with `clamp()`, and 
 
 ## Assets still to add
 Upload these to `img/`. The page already references them and hides them cleanly while they're missing:
-- `img/poster.jpg`: the dis/APPROVE poster with the engine-bay cutout (Clothing row)
-- `img/badge.png`: the grunge DISAPPROVED badge (Stickers row, footer)
+- `img/badge.png`: the grunge DISAPPROVED badge (footer)
 - `img/tribal.png`: the tribal flame graphic (faint background in the Shop section)
 
 The photos in `img/*.jpg` (hero collage and build log) are 238px crops from an Instagram screenshot; replace them with full-res originals under the same names.
